@@ -15,6 +15,9 @@ PRINT @sql;
 -- EXEC sp_executesql @sql;
 
 
+use Project
+
+
 
 CREATE TABLE [dbo].[users](
 	[uid] [nvarchar](10) NOT NULL PRIMARY KEY,
@@ -80,7 +83,7 @@ CREATE TABLE [dbo].[payment](
 CREATE TABLE [dbo].[wishlist](
 	[wishid] [nvarchar](10) NOT NULL primary key,
 	[pid] [nvarchar](10) NOT NULL foreign key references [dbo].[product](pid),
-	[uid] [nvarchar](10) NOT NULL foreign key reference users(uid),
+	[uid] [nvarchar](10) NOT NULL foreign key references users(uid),
 	[ss] [nvarchar](50) NOT NULL
 ) 
 
