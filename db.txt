@@ -31,7 +31,7 @@ CREATE TABLE [dbo].[login](
 	[uid] [nvarchar](10) NOT NULL FOREIGN KEY  references users(uid),
 	[pwd] [nvarchar](50) NOT NULL,
 	[role] [nvarchar](50) NOT NULL,
-	[LLDATE] [date] NOT NULL Default GETDATE()
+	[LLDATE] [datetime] NOT NULL Default GETDATE()
 ) 
 
 CREATE TABLE [dbo].[category](
@@ -52,7 +52,7 @@ CREATE TABLE [dbo].[category](
 
 CREATE TABLE [dbo].[keywords](
 	[kid] [nvarchar](10) NOT NULL primary key,
-	[key] [nvarchar](50) NOT NULL default '*',
+	[keyword] [nvarchar](50) NOT NULL default '*',
 	[pid] [nvarchar](10) NOT NULL foreign key references product(pid),
 )
 
@@ -68,7 +68,7 @@ CREATE TABLE [dbo].[order](
 	[oid] [nvarchar](10) NOT NULL primary key,
 	[pid] [nvarchar](10) NOT NULL foreign key references product(pid),
 	[uid] [nvarchar](10) NOT NULL foreign key references users(uid),
-	[odate] [date] NOT NULL default GETDATE(),
+	[odate] [datetime] NOT NULL default GETDATE(),
 	[paymode] [nvarchar](50) NOT NULL,
 )
 
@@ -76,7 +76,7 @@ CREATE TABLE [dbo].[payment](
 	uid nvarchar(10) foreign key references users(uid),
 	[payid] [nvarchar](10) primary key,
 	transid nvarchar(MAX),
-	[odate] [date] NOT NULL default GETDATE(),
+	[odate] [datetime] NOT NULL default GETDATE(),
 	order_id nvarchar(50)
 )
 
@@ -101,9 +101,13 @@ CREATE TABLE [dbo].[feedback](
 
 
 CREATE TABLE [dbo].[query](
-	[uid] [nvarchar](10) foreign key references users(uid),
-	[query] [nvarchar](50) NOT NULL,
-	[qid] [nvarchar](10) NOT NULL,
-	[Response] [nvarchar](50) NULL,
-	[qdate] [datetime] default GETDATE(),
+        [uid] [nvarchar](10) NOT NULL foreign key references users(uid),
+        [query] [nvarchar](50) NOT NULL,
+        [qid] [nvarchar](10) primary  key,
+       [Response] [nvarchar](50) NULL,
+        [qdate] [datetime] NOT NULL default GETDATE(),
 )
+
+
+
+
