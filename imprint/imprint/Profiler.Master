@@ -1,17 +1,13 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="imprint.SiteMaster" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Profiler.master.cs" Inherits="imprint.Profiler" %>
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
 <head runat="server">
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-   
-      	<title ID="title">Home</title>
-    <asp:PlaceHolder runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
     
-    </asp:PlaceHolder>
-   
  
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,8 +44,8 @@
 
 </head>
 <body>
-    <form runat="server">
-      
+    <form id="form1" runat="server">
+   
 <header class="header-v4">
 		<!-- Header desktop -->
 		<div class="container-menu-desktop">
@@ -336,10 +332,13 @@
 			</div>
 		</div>
 	</div>
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
-            </asp:ContentPlaceHolder>
-            <hr />
-           	<footer class="bg3 p-t-75 p-b-32">
+
+    <div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+            	<footer class="bg3 p-t-75 p-b-32">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-6 col-lg-3 p-b-50">
@@ -643,7 +642,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		</div>
 	</div>
 
-<!--===============================================================================================-->	
+    </form>
+    <!--===============================================================================================-->	
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
 	<script src="vendor/animsition/js/animsition.min.js"></script>
@@ -750,6 +750,5 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="js/main.js"></script>
 
 
-    </form>
 </body>
 </html>
