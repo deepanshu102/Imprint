@@ -87,3 +87,23 @@ CREATE TABLE [dbo].[wishlist](
 	[ss] [nvarchar](50) NOT NULL
 ) 
 
+use project;
+
+
+
+CREATE TABLE [dbo].[feedback](
+	[f_id] [nvarchar](10) Primary key,
+	[uid] [nvarchar](10)  foreign key references users(uid) ,
+	[description] [varchar](max) NOT NULL,
+	[rating] [int] NOT NULL
+)
+
+
+
+CREATE TABLE [dbo].[query](
+	[uid] [nvarchar](10) foreign key references users(uid),
+	[query] [nvarchar](50) NOT NULL,
+	[qid] [nvarchar](10) NOT NULL,
+	[Response] [nvarchar](50) NULL,
+	[qdate] [datetime] default GETDATE(),
+)
