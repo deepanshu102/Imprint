@@ -1,0 +1,249 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="WebApplication1.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+ 
+ 	<title>Bootstrap E-commerce Templates</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+
+ 
+  	<!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
+		<!-- bootstrap -->
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">      
+		<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+		
+		<link href="themes/css/bootstrappage.css" rel="stylesheet"/>
+		
+		<!-- global styles -->
+		<link href="themes/css/flexslider.css" rel="stylesheet"/>
+		<link href="themes/css/main.css" rel="stylesheet"/>
+
+		<!-- scripts -->
+		<script src="themes/js/jquery-1.7.2.min.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>				
+		<script src="themes/js/superfish.js"></script>	
+		<script src="themes/js/jquery.scrolltotop.js"></script>
+
+
+</head>
+<body>
+    <form runat="server">
+      
+
+         <div id="top-bar" class="container">
+			<div class="row">
+				<div class="span4">
+					
+						<input type="text" class="input-block-level search-query" Placeholder="eg. T-sirt">
+			
+				</div>
+                <% if (Session["user"] != null)
+                    {
+                           if (((List<string>)Session["user"])[1].ToString() == "A")
+                        { %>
+                       
+				<div class="span8">
+					<div class="account pull-right">
+						<ul class="user-menu">				
+							<li><a href="profile.aspx">My Account</a></li>
+							<li><a href="cart.aspx">Your Cart</a></li>
+							<li><a href="checkout.aspx">Checkout</a>
+
+
+							</li>					
+							<li>
+                              
+                                <asp:LinkButton ID="logout" OnClick="logout_Click" runat="server">Logout</asp:LinkButton>
+                             
+							</li>	
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+      	<div id="wrapper" class="container">
+			<section class="navbar main-menu">
+				<div class="navbar-inner main-menu">				
+					<a href="/" class="logo pull-left"><img src="themes/images/logo.png" class="site_logo" alt=""></a>
+					<nav id="menu" class="pull-right">
+						<ul>
+							<li><a href="#">Search</a>					
+								<ul>
+									<li><a href="./products.aspx">Items</a>
+									</li>									
+									<li><a href="./users.aspx">Users</a></li>
+									<li><a href="./category.aspx">Categories</a></li>									
+								</ul>
+							</li>															
+							<li><a href="./checkout.aspx">Orders</a></li>			
+														
+							<li><a href="./products.aspx">queries</a></li>
+							<li><a href="./products.aspx">Best Seller</a></li>
+							<li><a href="./products.aspx">Top Seller</a></li>
+						</ul>
+					</nav>
+				</div>
+			</section><%}
+                              else
+                              {%>
+
+              	<div class="span8">
+					<div class="account pull-right">
+						<ul class="user-menu">				
+							<li><a href="profile.aspx">My Account</a></li>
+							<li><a href="cart.aspx">Your Cart</a></li>
+							<li><a href="checkout.aspx">Checkout</a></li>					
+							<li>
+                              
+                                <asp:LinkButton ID="LinkButton1" OnClick="logout_Click" runat="server">Logout</asp:LinkButton>
+                             
+							</li>	
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+      	<div id="wrapper" class="container">
+			<section class="navbar main-menu">
+				<div class="navbar-inner main-menu">				
+					<a href="/" class="logo pull-left"><img src="themes/images/logo.png" class="site_logo" alt=""></a>
+					<nav id="menu" class="pull-right">
+						<ul>
+							<li><a href="./products.aspx">Woman</a>					
+								<ul>
+									<li><a href="./products.aspx">Lacinia nibh</a></li>									
+									<li><a href="./products.aspx">Eget molestie</a></li>
+									<li><a href="./products.aspx">Varius purus</a></li>									
+								</ul>
+							</li>															
+							<li><a href="./products.aspx">Man</a></li>			
+							<li><a href="./products.aspx">Sport</a>
+								<ul>									
+									<li><a href="./products.aspx">Gifts and Tech</a></li>
+									<li><a href="./products.aspx">Ties and Hats</a></li>
+									<li><a href="./products.aspx">Cold Weather</a></li>
+								</ul>
+							</li>							
+							<li><a href="./products.aspx">Hangbag</a></li>
+							<li><a href="./products.aspx">Best Seller</a></li>
+							<li><a href="./products.aspx">Top Seller</a></li>
+						</ul>
+					</nav>
+				</div>
+			</section>
+
+                            <%  } }
+                          else
+                          { %>	<div class="span8">
+					<div class="account pull-right">
+						<ul class="user-menu">				
+											
+							<li><a href="register.aspx">Login</a></li>		
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+      	<div id="wrapper" class="container">
+			<section class="navbar main-menu">
+				<div class="navbar-inner main-menu">				
+					<a href="/" class="logo pull-left"><img src="themes/images/logo.png" class="site_logo" alt=""></a>
+					<nav id="menu" class="pull-right">
+						<ul>
+							<li><a href="./products.aspx">Woman</a>					
+								<ul>
+									<li><a href="./products.aspx">Lacinia nibh</a></li>									
+									<li><a href="./products.aspx">Eget molestie</a></li>
+									<li><a href="./products.aspx">Varius purus</a></li>									
+								</ul>
+							</li>															
+							<li><a href="./products.aspx">Man</a></li>			
+							<li><a href="./products.aspx">Sport</a>
+								<ul>									
+									<li><a href="./products.aspx">Gifts and Tech</a></li>
+									<li><a href="./products.aspx">Ties and Hats</a></li>
+									<li><a href="./products.aspx">Cold Weather</a></li>
+								</ul>
+							</li>							
+							<li><a href="./products.aspx">Hangbag</a></li>
+							<li><a href="./products.aspx">Best Seller</a></li>
+							<li><a href="./products.aspx">Top Seller</a></li>
+						</ul>
+					</nav>
+				</div>
+			</section>
+
+              <%} %>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+          <section id="footer-bar">
+				<div class="row">
+					<div class="span3">
+						<h4>Navigation</h4>
+						<ul class="nav">
+							<li><a href=".//">Homepage</a></li>  
+							<li><a href="./about.aspx">About Us</a></li>
+							<li><a href="./contact.aspx">Contac Us</a></li>
+							<li><a href="./cart.aspx">Your Cart</a></li>
+							<li><a href="./register.aspx">Login</a></li>							
+						</ul>					
+					</div>
+					<div class="span4">
+						<h4>My Account</h4>
+						<ul class="nav">
+							<li><a href="#">My Account</a></li>
+							<li><a href="#">Order History</a></li>
+							<li><a href="#">Wish List</a></li>
+							<li><a href="#">Newsletter</a></li>
+						</ul>
+					</div>
+					<div class="span5">
+						<p class="logo"><img src="themes/images/logo.png" class="site_logo" alt=""></p>
+						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. the  Lorem Ipsum has been the industry's standard dummy text ever since the you.</p>
+						<br/>
+						<span class="social_icons">
+							<a class="facebook" href="#">Facebook</a>
+							<a class="twitter" href="#">Twitter</a>
+							<a class="skype" href="#">Skype</a>
+							<a class="vimeo" href="#">Vimeo</a>
+						</span>
+					</div>					
+				</div>	
+			</section>
+			<section id="copyright">
+				<span>Copyright 2013 bootstrappage template  All right reserved.</span>
+			</section>
+		</div>
+         	
+
+    </form>
+
+</body>
+    <script src="themes/js/common.js"></script>
+		<script src="themes/js/jquery.flexslider-min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$(document).ready(function() {
+					$('.flexslider').flexslider({
+						animation: "fade",
+						slideshowSpeed: 4000,
+						animationSpeed: 600,
+						controlNav: false,
+						directionNav: true,
+						controlsContainer: ".flex-container" // the container that holds the flexslider
+					});
+				});
+			});
+		</script>
+		<script>
+			$(document).ready(function() {
+				$('#checkout').click(function (e) {
+					document.location.href = "checkout.aspx";
+				})
+			});
+		</script>		
+</html>

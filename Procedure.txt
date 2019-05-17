@@ -131,3 +131,11 @@ begin
 select * from query where  uid=@uid;
 end
 end
+
+CREATE PROCEDURE LoginTimeUpdater
+@id nvarchar(10)
+as 
+begin
+update login set LLDATE=GETDATE() where uid=@id;
+end
+
