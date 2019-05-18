@@ -19,6 +19,28 @@ begin
 	end catch
 end
 
+create procedure profile_updation
+	@userid nvarchar(10),
+	@uid nvarchar(10),
+	@address nvarchar(100),
+	@phone nvarchar(50),
+	@email nvarchar(50)
+	as
+begin
+	Begin Try
+		Begin Transaction
+		ALTER TABLE login NOCHECK CONSTRAINT FK__login__uid__08B54D69
+	
+			update users set  phone=@phone,address=@address,email=@email,uid=@userid where uid=@uid
+			update login set uid=@userid where uid=@uid
+			Commit Transaction
+		print @userid
+		End try
+		Begin Catch
+		Rollback Transaction
+		print 'Failed'
+		end catch
+end
 
 //For Authenticate at login tym
 create procedure Authenticate 

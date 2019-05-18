@@ -43,14 +43,14 @@
 				</div>
                 <% if (Session["user"] != null)
                     {
-                           if (((List<string>)Session["user"])[1].ToString() == "A")
+                           if (((List<string>)Session["user"])[1].ToString() == "A")//for admin 
                         { %>
                        
 				<div class="span8">
 					<div class="account pull-right">
 						<ul class="user-menu">				
-							<li><a href="profile.aspx">My Account</a></li>
-							<li><a href="cart.aspx">Your Cart</a></li>
+							<li><a href="Default.aspx">My Account</a></li>
+							<li><a href="cart.aspx">Change Password</a></li>
 							<li><a href="checkout.aspx">Checkout</a>
 
 
@@ -88,7 +88,7 @@
 					</nav>
 				</div>
 			</section><%}
-                              else
+                              else//for users
                               {%>
 
               	<div class="span8">
@@ -137,7 +137,7 @@
 			</section>
 
                             <%  } }
-                          else
+                          else//for default unregistered
                           { %>	<div class="span8">
 					<div class="account pull-right">
 						<ul class="user-menu">				
