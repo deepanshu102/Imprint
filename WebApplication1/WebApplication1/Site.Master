@@ -50,7 +50,7 @@
 					<div class="account pull-right">
 						<ul class="user-menu">				
 							<li><a href="Default.aspx">My Account</a></li>
-							<li><a href="cart.aspx">Change Password</a></li>
+							<li><a href="Contact.aspx">Change Password</a></li>
 							<li><a href="checkout.aspx">Checkout</a>
 
 

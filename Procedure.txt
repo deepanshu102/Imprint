@@ -161,3 +161,11 @@ begin
 update login set LLDATE=GETDATE() where uid=@id;
 end
 
+create procedure changepassword
+@uid nvarchar(10),
+@password nvarchar(50),
+@pass nvarchar(50)
+as
+begin 
+	update login set pwd=HASHBYTES('SHA2_512',@pass) where uid=@uid and pwd=HASHBYTES('SHA2_512',@password)
+end
