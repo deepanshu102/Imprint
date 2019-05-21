@@ -43,7 +43,7 @@ namespace WebApplication1
                         obj.Add(parent.dr[2].ToString());
                        // Response.Write("<script>alert('"+parent.dr[0].ToString()+"');</script>");
                         Session["user"] = obj;
-                        Response.Redirect("/");
+                        Response.Redirect("profile.aspx");
                     }
                     else
                     {

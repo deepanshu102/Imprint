@@ -1,50 +1,7 @@
 ﻿<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="WebApplication1.Contact" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <%if (Session["user"] != null)
-            { %>	
-
-             <section class="header_text">
-				<table>
-                    <tr>
-                        <td>
-                            Password:
-                        </td>
-                        <td>
-                            <asp:TextBox ID="oldpass" textmode="Password" runat="server" placeholder="Enter your old password"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="RequiredFieldValidator" ControlToValidate="oldpass" Display="Dynamic" ForeColor="Red" SetFocusOnError="True" ValidationGroup="changepass_validator">Old password Should not Blank</asp:RequiredFieldValidator>
-                        </td>
-                    </tr>
-                      <tr>
-                        <td>
-                             New Password:
-                        </td>
-                        <td>
-                            <asp:TextBox ID="newpass" textmode="Password" runat="server" placeholder="Enter your new password"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="RequiredFieldValidator" ControlToValidate="newpass" Display="Dynamic" ForeColor="Red" SetFocusOnError="True" ValidationGroup="changepass_validator">New Password Should not Blank</asp:RequiredFieldValidator>
-                        </td>
-                    </tr>
-                      <tr>
-                        <td>
-                            Re-Password:
-                        </td>
-                        <td>
-                            <asp:TextBox ID="repass" textmode="Password" runat="server" placeholder="Enter your Re-password"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="RequiredFieldValidator" ControlToValidate="repass" Display="Dynamic" ForeColor="Red" SetFocusOnError="True" ValidationGroup="changepass_validator">Re-password Should not Blank</asp:RequiredFieldValidator>
-                            <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="CompareValidator" SetFocusOnError="True" Display="Dynamic" ControlToCompare="newpass" ControlToValidate="repass" ForeColor="Red" ValidationGroup="changepass_validator">Password Mismatch</asp:CompareValidator>
-                        </td>
-                    </tr>
-                 <tr>
-                     <td colspan="2">
-                         <asp:Button ValidationGroup="changepass_validator" runat="server" ID="Update" Text="Update" CssClass="btn-danger" OnClick="Update_Click" ></asp:Button>
-
-                     </td>
-                 </tr>
-				</table>
-			</section>
-    <%}
-            else
-            {%>
+  
     
     <section class="google_map">
 				<iframe width="100%" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=74%2F6+Nguy%E1%BB%85n+V%C4%83n+Tho%E1%BA%A1i,+S%C6%A1n+Tr%C3%A0,+%C4%90%C3%A0+N%E1%BA%B5ng,+Vi%E1%BB%87t+Nam&amp;aq=0&amp;oq=74%2F6+Nguyen+Van+Thoai+Da+Nang,+Viet+Nam&amp;sll=37.0625,-95.677068&amp;sspn=41.546728,79.013672&amp;ie=UTF8&amp;hq=&amp;hnear=74+Nguy%E1%BB%85n+V%C4%83n+Tho%E1%BA%A1i,+Ng%C5%A9+H%C3%A0nh+S%C6%A1n,+Da+Nang,+Vietnam&amp;t=m&amp;ll=16.064537,108.24151&amp;spn=0.032992,0.039396&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe>
@@ -103,5 +60,5 @@
 					</div>				
 				</div>
 			</section>	
-    <%} %>
+
 </asp:Content>
