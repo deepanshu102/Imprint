@@ -51,10 +51,9 @@
 						<ul class="user-menu">				
 							<li><a href="profile.aspx">My Account</a></li>
 							<li><a href="changepassword.aspx">Change Password</a></li>
-							<li><a href="checkout.aspx">Checkout</a>
+							
 
-
-							</li>					
+				
 							<li>
                               
                                 <asp:LinkButton ID="logout" OnClick="logout_Click" runat="server">Logout</asp:LinkButton>
@@ -73,9 +72,9 @@
 						<ul>
                             <li><a href="./products.aspx">ADD Items</a></li>															
 								<li><a href="./search.aspx">Search</a></li>															
-							<li><a href="./checkout.aspx">Orders</a></li>			
+							<li><a href="./orders.aspx">Orders</a></li>			
 														
-							<li><a href="./products.aspx">queries</a></li>
+							<li><a href="./queries.aspx">queries</a></li>
 							
 						</ul>
 					</nav>
