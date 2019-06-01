@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
  
- 	<title>Bootstrap E-commerce Templates</title>
+ 	<title>Imprint</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
 
@@ -50,7 +50,7 @@
 					<div class="account pull-right">
 						<ul class="user-menu">				
 							<li><a href="profile.aspx">My Account</a></li>
-							<li><a href="Contact.aspx">Change Password</a></li>
+							<li><a href="changepassword.aspx">Change Password</a></li>
 							<li><a href="checkout.aspx">Checkout</a>
 
 
@@ -71,19 +71,12 @@
 					<a href="/" class="logo pull-left"><img src="themes/images/logo.png" class="site_logo" alt=""></a>
 					<nav id="menu" class="pull-right">
 						<ul>
-							<li><a href="#">Search</a>					
-								<ul>
-									<li><a href="./products.aspx">Items</a>
-									</li>									
-									<li><a href="./users.aspx">Users</a></li>
-									<li><a href="./category.aspx">Categories</a></li>									
-								</ul>
-							</li>															
+                            <li><a href="./products.aspx">ADD Items</a></li>															
+								<li><a href="./search.aspx">Search</a></li>															
 							<li><a href="./checkout.aspx">Orders</a></li>			
 														
 							<li><a href="./products.aspx">queries</a></li>
-							<li><a href="./products.aspx">Best Seller</a></li>
-							<li><a href="./products.aspx">Top Seller</a></li>
+							
 						</ul>
 					</nav>
 				</div>

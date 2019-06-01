@@ -13,7 +13,10 @@ namespace WebApplication1
         Connections parent;
         protected void Page_Load(object sender, EventArgs e)
         {
-            parent = new Connections();
+            if (Session["user"] != null)
+                parent = new Connections();
+            else
+                Response.Redirect("/");
         }
         protected void Update_Click(object sender, EventArgs e)
         {

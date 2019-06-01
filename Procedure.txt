@@ -169,3 +169,35 @@ as
 begin 
 	update login set pwd=HASHBYTES('SHA2_512',@pass) where uid=@uid and pwd=HASHBYTES('SHA2_512',@password)
 end
+create procedure categories
+as
+begin 
+select * from category
+end
+
+
+USE [project]
+GO
+/****** Object:  StoredProcedure [dbo].[products]    Script Date: 6/1/2019 12:53:59 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [dbo].[products]
+as
+begin
+select * from product,category,keywords where product.cat_id=category.cat_id or product.pid=keywords.pid;
+end
+create procedure del_product
+@id nvarchar(50)
+as
+begin 
+	begin Transaction
+	begin try
+		delete from product where pid=@id;
+	commit Transaction;
+	end try
+	begin catch
+	rollback transaction;
+	end catch
+end
