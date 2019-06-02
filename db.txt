@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 USE [project]
 GO
 
@@ -87,11 +88,58 @@ GO
 CREATE TABLE [dbo].[product](
 	[cat_id] [nvarchar](10) NOT NULL,
 	[pid] [nvarchar](10) NOT NULL,
+=======
+use Project
+GO
+DECLARE @sql NVARCHAR(MAX) = N'';
+
+SELECT @sql += '
+DROP TABLE ' 
+    + QUOTENAME(s.name)
+    + '.' + QUOTENAME(t.name) + ';'
+    FROM sys.tables AS t
+    INNER JOIN sys.schemas AS s
+    ON t.[schema_id] = s.[schema_id] 
+
+
+PRINT @sql;
+-- EXEC sp_executesql @sql;
+
+
+use Project
+
+
+
+CREATE TABLE [dbo].[users](
+	[uid] [nvarchar](10) NOT NULL PRIMARY KEY,
+	[uname] [nvarchar](50) NOT NULL,
+	[phone] [nvarchar](50) NOT NULL,
+	[email] [nvarchar](50) NOT NULL,
+	[address] [nvarchar](100) NOT NULL,
+
+)
+CREATE TABLE [dbo].[login](
+	[uid] [nvarchar](10) NOT NULL FOREIGN KEY  references users(uid),
+	[pwd] [nvarchar](50) NOT NULL,
+	[role] [nvarchar](50) NOT NULL,
+	[LLDATE] [date] NOT NULL Default GETDATE()
+) 
+
+CREATE TABLE [dbo].[category](
+	[cat_id] [nvarchar](10) NOT NULL Primary key,
+	[catname] [nvarchar](50) NOT NULL,
+ )
+
+ CREATE TABLE [dbo].[product](
+	[cat_id] [nvarchar](10) NOT NULL foreign key references category(cat_id),
+	[pid] [nvarchar](10) NOT NULL primary key ,
+>>>>>>> master
 	[pname] [nvarchar](50) NOT NULL,
 	[pdesc] [nvarchar](50) NOT NULL,
 	[pimage] [nvarchar](20) NOT NULL,
 	[price] [nvarchar](10) NOT NULL,
 	[stock] [nvarchar](50) NOT NULL,
+<<<<<<< HEAD
 PRIMARY KEY CLUSTERED 
 (
 	[pid] ASC
@@ -300,3 +348,65 @@ ALTER TABLE [dbo].[order]  WITH CHECK ADD FOREIGN KEY([uid])
 REFERENCES [dbo].[users] ([uid])
 GO
 
+=======
+	
+)
+
+CREATE TABLE [dbo].[keywords](
+	[kid] [nvarchar](10) NOT NULL primary key,
+	[key] [nvarchar](50) NOT NULL default '*',
+	[pid] [nvarchar](10) NOT NULL foreign key references product(pid),
+)
+
+CREATE TABLE [dbo].[cart](
+	[cartid] [nvarchar](10) NOT NULL primary key,
+	[pid] [nvarchar](10) NOT NULL foreign key references product(pid) ,
+	[uid] [nvarchar](10) NOT NULL foreign key references users(uid),
+	[quantity] [nvarchar](50) NOT NULL,
+	[bill] [nvarchar](50) NOT NULL,
+ )
+
+CREATE TABLE [dbo].[order](
+	[oid] [nvarchar](10) NOT NULL primary key,
+	[pid] [nvarchar](10) NOT NULL foreign key references product(pid),
+	[uid] [nvarchar](10) NOT NULL foreign key references users(uid),
+	[odate] [date] NOT NULL default GETDATE(),
+	[paymode] [nvarchar](50) NOT NULL,
+)
+
+CREATE TABLE [dbo].[payment](
+	uid nvarchar(10) foreign key references users(uid),
+	[payid] [nvarchar](10) primary key,
+	transid nvarchar(MAX),
+	[odate] [date] NOT NULL default GETDATE(),
+	order_id nvarchar(50)
+)
+
+CREATE TABLE [dbo].[wishlist](
+	[wishid] [nvarchar](10) NOT NULL primary key,
+	[pid] [nvarchar](10) NOT NULL foreign key references [dbo].[product](pid),
+	[uid] [nvarchar](10) NOT NULL foreign key references users(uid),
+	[ss] [nvarchar](50) NOT NULL
+) 
+
+use project;
+
+
+
+CREATE TABLE [dbo].[feedback](
+	[f_id] [nvarchar](10) Primary key,
+	[uid] [nvarchar](10)  foreign key references users(uid) ,
+	[description] [varchar](max) NOT NULL,
+	[rating] [int] NOT NULL
+)
+
+
+
+CREATE TABLE [dbo].[query](
+	[uid] [nvarchar](10) foreign key references users(uid),
+	[query] [nvarchar](50) NOT NULL,
+	[qid] [nvarchar](10) NOT NULL,
+	[Response] [nvarchar](50) NULL,
+	[qdate] [datetime] default GETDATE(),
+)
+>>>>>>> master
