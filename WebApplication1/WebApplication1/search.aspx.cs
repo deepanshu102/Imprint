@@ -39,9 +39,10 @@ namespace WebApplication1
                     parent.Connection_establish();
                 parent.cmd = new SqlCommand("A_User", Connections.con);
                 parent.cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
-                parent.dr = parent.cmd.ExecuteReader();
-                 Grid_Users.DataSource = parent.dr;
+                parent.da.SelectCommand = parent.cmd;
+                parent.da.Fill(parent.ds, "Users");
+                
+                 Grid_Users.DataSource = parent.ds.Tables["Users"].DefaultView;
                 Grid_Users.DataBind();
 
             }
@@ -64,9 +65,10 @@ namespace WebApplication1
                     parent.Connection_establish();
                 parent.cmd = new SqlCommand("categories", Connections.con);
                 parent.cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                parent.da.SelectCommand = parent.cmd;
+                parent.da.Fill(parent.ds,"Category");
 
-                parent.dr = parent.cmd.ExecuteReader();
-                 Grid_Category.DataSource = parent.dr;
+                Grid_Category.DataSource = parent.ds.Tables["Category"].DefaultView;
                 Grid_Category.DataBind();
             }
             catch (Exception k)
@@ -88,9 +90,10 @@ namespace WebApplication1
                     parent.Connection_establish();
                 parent.cmd = new SqlCommand("products", Connections.con);
                     parent.cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
-                parent.dr = parent.cmd.ExecuteReader();
-                Grid_items.DataSource = parent.dr;
+                parent.da.SelectCommand = parent.cmd;
+                parent.da.Fill(parent.ds, "Products");
+               
+                Grid_items.DataSource = parent.ds.Tables["Products"].DefaultView;
                 Grid_items.DataBind();
 
             }
@@ -288,6 +291,42 @@ namespace WebApplication1
             {
                 parent.Connection_refuse();
             }
+        }
+
+        protected void Grid_Category_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            // Set the index of the new display page.  
+            Grid_Category.PageIndex = e.NewPageIndex;
+
+
+            // Rebind the GridView control to  
+            // show data in the new page. 
+            PopulateGridView1();//FOr Category           
+        }
+
+        protected void Grid_Category_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Grid_Users_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            Grid_Category.PageIndex = e.NewPageIndex;
+
+
+            // Rebind the GridView control to  
+            // show data in the new page. 
+            PopulateGridView2();//For Users  
+        }
+
+        protected void Grid_items_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            Grid_Category.PageIndex = e.NewPageIndex;
+
+
+            // Rebind the GridView control to  
+            // show data in the new page. 
+            PopulateGridview();//FOr items
         }
     }
 }

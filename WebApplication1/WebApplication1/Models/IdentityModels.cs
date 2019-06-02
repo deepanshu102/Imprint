@@ -9,6 +9,7 @@ using Microsoft.Owin.Security;
 using WebApplication1.Models;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Data;
 
 namespace WebApplication1.Models
 {
@@ -17,14 +18,21 @@ namespace WebApplication1.Models
         public static SqlConnection con;
         internal SqlCommand cmd;
         internal SqlDataReader dr;
+        internal SqlDataAdapter da;
+        internal DataSet ds;
+        internal DataView dv;
         static Connections()
         {
             con = new SqlConnection(ConfigurationManager.ConnectionStrings["database_con"].ConnectionString);
+            
         }
         public Connections()
         {
 
             cmd = new SqlCommand();
+            da = new SqlDataAdapter();
+            ds = new DataSet();
+            dv = new DataView();
         }
         public void Connection_establish()
         {

@@ -44,7 +44,7 @@
                 </tr>
                 <tr>
                     <td>
-                        Item Image</td><td><asp:FileUpload ID="File_image"  required="" runat="server" placeholder="Enter Item Name">  </asp:FileUpload>
+                       Item Image</td><td><asp:FileUpload ID="File_image"  AutoPostBack="true" required="" runat="server" placeholder="Enter Item Name" OnDataBinding="File_image_DataBinding">  </asp:FileUpload>
                     </td>
                 </tr>
                      <tr>
@@ -61,8 +61,9 @@
                 </tr>
             </table></td>
                    <td class="col-6" >
-                       <header>Keywords Help for search</header>
-                       <div >
+    
+                       <header>Keywords Help for searchader</header>
+                       <div>
                            <asp:TextBox ID="KeysIndi"  runat="server" Wrap="False"></asp:TextBox>
                        </div>
                    </td></tr>

@@ -12,6 +12,7 @@ namespace WebApplication1
 {
     public partial class products : System.Web.UI.Page
     {
+        String s;
         Connections parent;
         static int ids = 0, key_id = 0;
         List<String> keywords = new List<String>();
@@ -83,17 +84,12 @@ namespace WebApplication1
 
             if (IsValid)
             {
-                if (File_image.HasFile)
-                {
-
-                    if (checkFileType(File_image.FileName))
-                    {
-
+             
                         try
                         {
                             parent.Connection_establish();
                             pids = "Pro" + ids;
-                            String s = "/themes/images/product/" + File_image.FileName;
+                            
                             parent.cmd = new SqlCommand("add_product", Connections.con);
                             parent.cmd.CommandType = System.Data.CommandType.StoredProcedure;
                             (parent.cmd.Parameters.AddWithValue("@pid", SqlDbType.NVarChar)).Value = pids;
@@ -127,16 +123,11 @@ namespace WebApplication1
                         initials();
 
                         Response.Write("<script>alert('sucessfull inserted');</script>");
-                    }
-                    else
-                    {
-                        Response.Write("<script>alert('Select only jpg or png Image');</script>");
-                    }
-
+                  
 
                 }
             }
-        }
+        
         void keyInserter(String ki)
         {
 
@@ -183,6 +174,27 @@ namespace WebApplication1
             details.Text = "";
 
         }
+
+    protected void File_image_DataBinding(object sender, EventArgs e)
+    {
+        if (File_image.HasFile)
+        {
+                Response.Write("Hello");
+            if (checkFileType(File_image.FileName))
+            {
+                    File_image.SaveAs(Server.MapPath("~/themes/images/product/") + File_image.FileName);
+                    s = "/themes/images/product/" + File_image.FileName;
+                   
+            }
+
+
+            else
+            {
+                Response.Write("<script>alert('Select only jpg or png Image');</script>");
+            }
+        }
+    }
+
         private Boolean checkFileType(String s)
         {
 

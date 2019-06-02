@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="register.aspx.cs" Inherits="WebApplication1.register" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    
 <div id="wrapper" class="container">
 				
 			<section class="header_text sub">
@@ -31,12 +32,13 @@
                                     <asp:Button tabindex="3" class="btn btn-inverse large" ID="Button1" runat="server" Text="Sign into your account" OnClick="Button1_Click" ValidateRequestMode="Enabled" ValidationGroup="login_validation" />
 									
 									<hr>
+                                    	<p class="reset"><button tabindex="4" id="register_button" onclick="button();" title="Register">Register Yourself</button></p>
 									<p class="reset">Recover your <a tabindex="4" href="#" title="Recover your username or password">username or password</a></p>
 								</div>
 							</fieldset>
 										
 					</div>
-					<div class="span7">					
+					<div class=" modal" id="myModal" >					
 						<h4 class="title"><span class="text"><strong>Register</strong> Form</span></h4>
 						<div class="form-stacked">
 							<fieldset>
@@ -72,4 +74,30 @@
 			
 
         </div>
+    <script>
+        var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+        var btn = document.getElementById("register_button");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
 </asp:Content>
