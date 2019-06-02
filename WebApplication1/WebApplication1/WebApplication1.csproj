@@ -170,9 +170,14 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
+<<<<<<< HEAD:WebApplication1/WebApplication1/WebApplication1.csproj
     <Content Include="cart.aspx" />
     <Content Include="changepassword.aspx" />
     <Content Include="checkout.aspx" />
+=======
+    <Content Include="blog-detail.aspx" />
+    <Content Include="blog.aspx" />
+>>>>>>> master:imprint/imprint/imprint.csproj
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -182,6 +187,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Account\Web.config" />
+    <Content Include="Profiler.Master" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="orders.aspx" />
     <Content Include="products.aspx" />
@@ -221,7 +227,11 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+<<<<<<< HEAD:WebApplication1/WebApplication1/WebApplication1.csproj
     <Content Include="search.aspx" />
+=======
+    <Content Include="shopping-cart.aspx" />
+>>>>>>> master:imprint/imprint/imprint.csproj
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
@@ -354,6 +364,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+<<<<<<< HEAD:WebApplication1/WebApplication1/WebApplication1.csproj
     <Compile Include="cart.aspx.cs">
       <DependentUpon>cart.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -374,6 +385,21 @@
     </Compile>
     <Compile Include="checkout.aspx.designer.cs">
       <DependentUpon>checkout.aspx</DependentUpon>
+=======
+    <Compile Include="blog-detail.aspx.cs">
+      <DependentUpon>blog-detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="blog-detail.aspx.designer.cs">
+      <DependentUpon>blog-detail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="blog.aspx.cs">
+      <DependentUpon>blog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="blog.aspx.designer.cs">
+      <DependentUpon>blog.aspx</DependentUpon>
+>>>>>>> master:imprint/imprint/imprint.csproj
     </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
@@ -421,9 +447,21 @@
     <Compile Include="profile.aspx.designer.cs">
       <DependentUpon>profile.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Profiler.Master.cs">
+      <DependentUpon>Profiler.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profiler.Master.designer.cs">
+      <DependentUpon>Profiler.Master</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+<<<<<<< HEAD:WebApplication1/WebApplication1/WebApplication1.csproj
     <Compile Include="queries.aspx.cs">
       <DependentUpon>queries.aspx</DependentUpon>
+=======
+    <Compile Include="shopping-cart.aspx.cs">
+      <DependentUpon>shopping-cart.aspx</DependentUpon>
+>>>>>>> master:imprint/imprint/imprint.csproj
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="queries.aspx.designer.cs">
@@ -432,6 +470,7 @@
     <Compile Include="register.aspx.cs">
       <DependentUpon>register.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+<<<<<<< HEAD:WebApplication1/WebApplication1/WebApplication1.csproj
     </Compile>
     <Compile Include="register.aspx.designer.cs">
       <DependentUpon>register.aspx</DependentUpon>
@@ -446,6 +485,8 @@
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+=======
+>>>>>>> master:imprint/imprint/imprint.csproj
     </Compile>
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
