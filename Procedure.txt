@@ -1,0 +1,203 @@
+//For Registration
+create procedure register 
+@userid nvarchar(10),
+@pass nvarchar(50),
+@name nvarchar(50),
+@phone nvarchar(50),
+@email nvarchar(50),
+@address nvarchar(100)
+as
+begin
+	begin try
+		begin transaction
+			insert into users(uid,uname,phone,email,address) Values(@userid,@name,@phone,@email,@address);
+			insert into login(uid,pwd,role) Values (@userid,HASHBYTES('SHA2_512',@pass),'U');
+		commit transaction
+	end try
+	begin catch
+		rollback transaction
+	end catch
+end
+
+create procedure profile_updation
+	@userid nvarchar(10),
+	@uid nvarchar(10),
+	@address nvarchar(100),
+	@phone nvarchar(50),
+	@email nvarchar(50)
+	as
+begin
+	Begin Try
+		Begin Transaction
+		ALTER TABLE login NOCHECK CONSTRAINT FK__login__uid__08B54D69
+	
+			update users set  phone=@phone,address=@address,email=@email,uid=@userid where uid=@uid
+			update login set uid=@userid where uid=@uid
+			Commit Transaction
+		print @userid
+		End try
+		Begin Catch
+		Rollback Transaction
+		print 'Failed'
+		end catch
+end
+
+//For Authenticate at login tym
+create procedure Authenticate 
+@userid nvarchar(10),
+@pass nvarchar(50)
+as
+begin
+	select * from login where uid=@userid and pwd=HASHBYTES('SHA2_512',@pass);
+end
+
+create procedure add_category
+ @catid nvarchar(10),
+ @catname nvarchar(50)
+ as 
+ begin
+	insert into category(cat_id,catname) Values(@catid,@catname);
+ end
+
+
+create procedure add_product 
+	@catid nvarchar(10),
+	@pid nvarchar(10),
+	@name nvarchar(50),
+	@desc nvarchar(50),
+	@pimage nvarchar(20),
+	@price nvarchar(10),
+	@stock nvarchar(50)
+as 
+begin
+	insert into product (cat_id,pid,pname,pdesc,pimage,price,stock) Values(@catid,@pid,@name,@desc,@pimage,@price,@stock);
+end 
+
+create procedure add_key
+	@pid nvarchar(10),
+	@kid nvarchar(10),
+	@key nvarchar(50)
+as 
+begin
+	insert into keywords(pid,kid,keyword) Values(@pid,@kid,@key);
+end
+
+
+create procedure add_wishlist
+@wishid nvarchar(10),
+@pid nvarchar(10),
+@uid nvarchar(10),
+@stockstatus nvarchar(50)
+as 
+begin
+Declare @count int 
+	select @count=count(*) from product where pid=@pid and stock>=@stockstatus
+	if @count>0
+	begin
+	insert into wishlist(wishid,pid,uid,ss) Values(@wishid,@pid,@uid,@stockstatus)
+
+	end
+	else
+	begin
+	return @count
+	end
+end
+
+create procedure add_cart
+@cartid nvarchar(10),
+@pid nvarchar(10),
+@uid nvarchar(10),
+@quant nvarchar(50)
+
+as 
+begin 
+Declare @bill_cal int
+	select @bill_cal=price from product where pid=@pid and stock>@quant;
+	insert into cart (cartid,pid,uid,quantity,bill) values(@cartid,@pid,@uid,@quant,@bill_cal*@quant);
+end
+
+
+//orders related procedure left
+//query related procedure left
+//feedback related procedure left for you 
+
+
+
+create procedure Profile
+@uid nvarchar(10)
+as
+begin
+select * from users,login where login.uid=users.uid and users.uid=@uid;
+end
+create procedure products
+as
+begin
+select * from product,category,keywords where product.cat_id=category.cat_id and product.pid=keywords.pid;
+end
+create procedure A_User
+as
+begin 
+select * from users,login where login.uid=users.uid and login.role='U';
+end
+create procedure queries
+@uid nvarchar(10),
+@role nvarchar(50)
+as
+begin
+if @role='A'
+begin
+	select * from query where qid<>(select qid from query where Response<>' ') order by qdate desc;
+end
+else
+begin 
+select * from query where  uid=@uid;
+end
+end
+
+CREATE PROCEDURE LoginTimeUpdater
+@id nvarchar(10)
+as 
+begin
+update login set LLDATE=GETDATE() where uid=@id;
+end
+
+create procedure changepassword
+@uid nvarchar(10),
+@password nvarchar(50),
+@pass nvarchar(50)
+as
+begin 
+	update login set pwd=HASHBYTES('SHA2_512',@pass) where uid=@uid and pwd=HASHBYTES('SHA2_512',@password)
+end
+create procedure categories
+as
+begin 
+select * from category
+end
+
+
+USE [project]
+GO
+/****** Object:  StoredProcedure [dbo].[products]    Script Date: 6/1/2019 12:53:59 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [dbo].[products]
+as
+begin
+select * from product,category,keywords where product.cat_id=category.cat_id or product.pid=keywords.pid;
+end
+create procedure del_product
+@id nvarchar(50)
+as
+begin 
+	begin Transaction
+	begin try
+		delete from product where pid=@id;
+	commit Transaction;
+	end try
+	begin catch
+	rollback transaction;
+	end catch
+end
