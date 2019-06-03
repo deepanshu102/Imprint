@@ -104,7 +104,7 @@
            
         </div>
         <div id="items" style="display:block;margin-left:20%;">
-           <center> Items Name:-<asp:TextBox ID="Item_Box" runat="server"></asp:Textbox><asp:ImageButton ID="ImageButton1" runat="server" onclick="ImageButton1_Click" ImageUrl="/themes/search.png" Height="40px" ImageAlign="AbsBottom" Width="40px"></asp:ImageButton>
+           <center> Items Name:-<asp:TextBox ID="Item_Box" runat="server"></asp:Textbox><asp:ImageButton ID="ImageButton1" runat="server" onclick="ImageButton1_Click1" ImageUrl="/themes/search.png" Height="40px" ImageAlign="AbsBottom" Width="40px"></asp:ImageButton>
                <hr/>
 <asp:Label ID="Status" runat="server" Text=""></asp:Label>
                <hr />
@@ -121,13 +121,7 @@
                 <SortedDescendingHeaderStyle BackColor="#00547E" />
                  <PagerStyle BackColor="#99CCCC" ForeColor="#003399" HorizontalAlign="Left" /> 
                 <Columns>
-                      <asp:TemplateField HeaderText="Image">
-                        <ItemTemplate>
-                            <img src='<%#Eval("pimage") %>' width="30%" height="20%" />
-                         </ItemTemplate>
-                       
-                       
-                    </asp:TemplateField>
+                    
                     <asp:TemplateField HeaderText="Name">
                         <ItemTemplate>
                          

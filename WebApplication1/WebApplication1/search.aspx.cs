@@ -146,10 +146,7 @@ namespace WebApplication1
             }
         }
 
-        protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
-        {
-
-        }
+      
 
         protected void Grid_Category_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
@@ -234,21 +231,19 @@ namespace WebApplication1
             try
             {
                 parent.Connection_establish();
-                parent.cmd = new SqlCommand("select * from category where catname=@items", Connections.con);
-                parent.cmd.Parameters.AddWithValue("@items", Category_Box.Text);
-                parent.dr = parent.cmd.ExecuteReader();
-                if (parent.dr.HasRows)
+                parent.cmd = new SqlCommand("categories", Connections.con);
+                parent.cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                parent.da.SelectCommand = parent.cmd;
+                parent.da.Fill(parent.ds, "Category");
+                if (!string.IsNullOrEmpty(Category_Box.Text))
                 {
-                    Grid_Category.DataSource = parent.dr;
+                    parent.ds.Tables["Category"].DefaultView.RowFilter = "catname='" + Category_Box.Text + "'";
+                }
+               
+                    Grid_Category.DataSource = parent.ds.Tables["Category"].DefaultView;
                     Grid_Category.DataBind();
 
-                }
-                else
-                {
-                    Response.Write("<script>alert('No Data Found');</script>");
-                    parent.Connection_refuse();
-                    PopulateGridView1();
-                }
+           
             }
             catch (Exception k)
             {
@@ -267,30 +262,23 @@ namespace WebApplication1
             try
             {
                 parent.Connection_establish();
-                parent.cmd = new SqlCommand("select * from users where uname=@username", Connections.con);
-                parent.cmd.Parameters.AddWithValue("@username", User_name.Text);
-                parent.dr = parent.cmd.ExecuteReader();
-                if (parent.dr.HasRows)
-                {
-                    Grid_Users.DataSource = parent.dr;
-                    Grid_Users.DataBind();
-
-                }
-                else
-                {
-                    Response.Write("<script>alert('No Data Found');</script>");
-                    PopulateGridView2();
-                }
+                parent.cmd = new SqlCommand("A_User", Connections.con);
+                parent.cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                parent.da.SelectCommand = parent.cmd;
+                parent.da.Fill(parent.ds, "Users");
+                parent.dv = parent.ds.Tables["Users"].DefaultView;
+                if (!string.IsNullOrEmpty(User_name.Text)) { parent.dv.RowFilter = "uname='" + User_name.Text + "'"; }
+                Grid_Users.DataSource = parent.dv;
+                Grid_Users.DataBind();
             }
-            catch (Exception k)
-            {
-                Response.Write(k.StackTrace);
-
-            }
+            catch
+            { }
             finally
             {
                 parent.Connection_refuse();
             }
+
+        
         }
 
         protected void Grid_Category_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -321,12 +309,39 @@ namespace WebApplication1
 
         protected void Grid_items_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            Grid_Category.PageIndex = e.NewPageIndex;
+            Grid_items.PageIndex = e.NewPageIndex;
 
 
             // Rebind the GridView control to  
             // show data in the new page. 
             PopulateGridview();//FOr items
+        }
+
+        protected void ImageButton1_Click1(object sender, ImageClickEventArgs e)
+        {
+            try
+            {
+                parent.Connection_establish();
+                parent.cmd = new SqlCommand("products", Connections.con);
+                parent.cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                parent.da.SelectCommand = parent.cmd;
+                parent.da.Fill(parent.ds, "Products");
+                if (!string.IsNullOrEmpty(Item_Box.Text))
+                {
+                    parent.ds.Tables["Products"].DefaultView.RowFilter = "pname='" + Item_Box.Text + "'";
+                }
+                Grid_items.DataSource = parent.ds.Tables["Products"].DefaultView;
+                Grid_items.DataBind();
+            }
+            catch (Exception k)
+            {
+                Response.Write(Item_Box.Text);
+
+            }
+            finally
+            {
+                parent.Connection_refuse();
+            }
         }
     }
 }
