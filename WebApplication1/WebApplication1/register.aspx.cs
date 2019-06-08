@@ -111,6 +111,7 @@ namespace WebApplication1
                 parent.dr = parent.cmd.ExecuteReader();
                 if (parent.dr.HasRows)
                 {
+                   
                     label1.Text = "This username already Exist";
                 }
                 else
