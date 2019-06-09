@@ -14,7 +14,7 @@ namespace WebApplication1
     {
         String s;
         Connections parent;
-        static int ids = 0, key_id = 0,cart_id=0;
+        static int ids = 0, key_id = 0;
         List<String> keywords = new List<String>();
         string pids;
         protected void Page_Load(object sender, EventArgs e)
@@ -24,27 +24,7 @@ namespace WebApplication1
             if (!IsPostBack)
             {
                 Category_binder();
-                product_binder();
             }
-        }
-
-        private void product_binder()
-        {
-            try
-            {
-                parent.Connection_establish();
-                parent.cmd = new SqlCommand("products", Connections.con);
-                parent.cmd.CommandType = CommandType.StoredProcedure;
-                parent.da.SelectCommand = parent.cmd;
-                parent.da.Fill(parent.ds, "Products");
-                Products.DataSource = parent.ds.Tables["Products"].DefaultView;
-                Products.DataBind();
-
-            }
-            catch(Exception k)
-            { Response.Write(k.StackTrace); }
-            finally
-            { parent.Connection_refuse(); }
         }
 
         void keyadder()
@@ -214,66 +194,6 @@ namespace WebApplication1
             }
         }
     }
-
-        protected void Products_ItemDeleting(object sender, ListViewDeleteEventArgs e)
-        {
-
-        }
-
-        protected void Products_ItemCommand(object sender, ListViewCommandEventArgs e)
-        {
-            string bill;
-            String id = e.CommandArgument.ToString();
-            if (e.CommandName == "ADD")
-            {
-                if (Session["user"] != null)
-                {
-                    try
-                    {
-                        parent.Connection_establish();
-                        parent.cmd = new SqlCommand("select price from product where pid=@pid", Connections.con);
-                        parent.cmd.Parameters.AddWithValue("@pid", e.CommandArgument.ToString());
-                        parent.dr = parent.cmd.ExecuteReader();
-                        parent.dr.Read();
-                        bill = parent.dr[0].ToString();
-
-                        parent.Connection_refuse();
-                        
-                        parent.Connection_establish();
-                        parent.cmd = new SqlCommand("insert into cart (cartid,pid,uid,quantity,bill) values(@cartid,@pid,@uid,@quant,@bills);", Connections.con);
-                        parent.cmd.Parameters.AddWithValue("@cartid", "Crt" + cart_id);
-                        parent.cmd.Parameters.AddWithValue("@pid" ,e.CommandArgument.ToString());
-                        parent.cmd.Parameters.AddWithValue("@uid", ((List<String>)Session["users"])[0].ToString());
-                        parent.cmd.Parameters.AddWithValue("@quant","1");
-                        parent.cmd.Parameters.AddWithValue("@bills", bill);
-                        parent.cmd.ExecuteNonQuery();
-                     
-                    }
-                    catch (Exception k)
-                    {
-                        
-                        Response.Write(k.StackTrace);
-                    }
-                    finally
-                    {
-                        parent.Connection_refuse();
-                    }
-                }
-                else
-                {
-                    Response.Redirect("register.aspx");
-                }
-
-            }
-            else if (e.CommandName == "Delete")
-            {
-                Response.Cookies["products"].Value = id;
-                Response.Cookies["products"].Expires = DateTime.Now.AddDays(7);
-                Response.Redirect("product_detail.aspx");
-            }
-
-           
-        }
 
         private Boolean checkFileType(String s)
         {
