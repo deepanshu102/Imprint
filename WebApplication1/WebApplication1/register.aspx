@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="register.aspx.cs" Inherits="WebApplication1.register" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    
 <div id="wrapper" class="container">
 				
 			<section class="header_text sub">
@@ -31,12 +32,13 @@
                                     <asp:Button tabindex="3" class="btn btn-inverse large" ID="Button1" runat="server" Text="Sign into your account" OnClick="Button1_Click" ValidateRequestMode="Enabled" ValidationGroup="login_validation" />
 									
 									<hr>
+                                    	
 									<p class="reset">Recover your <a tabindex="4" href="#" title="Recover your username or password">username or password</a></p>
 								</div>
 							</fieldset>
 										
 					</div>
-					<div class="span7">					
+							   <div class="span7" >					
 						<h4 class="title"><span class="text"><strong>Register</strong> Form</span></h4>
 						<div class="form-stacked">
 							<fieldset>
@@ -65,11 +67,13 @@
 								<div class="actions"><input tabindex="9" class="btn btn-inverse large" type="submit" value="Create your account"></div>
 							</fieldset>
 						</div>					
-					</div>				
+					</div>		
 				</div>
 			</section>			
 		
 			
 
         </div>
+ 
+ 
 </asp:Content>

@@ -15,11 +15,11 @@
     <div class="row">
         <div id="Users" style="display:none;margin-left:20%;">
             <center> 
-              Name:-<asp:TextBox ID="User_name" runat="server"></asp:Textbox><asp:ImageButton ID="ImageButton2" onclick="ImageButton2_Click" runat="server"  ImageUrl="~/img/search.png" Height="40px" ImageAlign="AbsBottom" Width="40px"></asp:ImageButton>
+              Name:-<asp:TextBox ID="User_name" runat="server"></asp:Textbox><asp:ImageButton ID="ImageButton2" onclick="ImageButton2_Click" runat="server"  ImageUrl="/themes/search.png" Height="40px" ImageAlign="AbsBottom" Width="40px"></asp:ImageButton>
                <hr/>
                 <asp:Label ID="Label2" runat="server" Text=""></asp:Label>
                <hr />
-            <asp:GridView AutoPostBack="true" ID="Grid_Users" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="uid"
+            <asp:GridView AutoPostBack="true" ID="Grid_Users" AllowPaging="true" PageSize="5" OnPageIndexChanging="Grid_Users_PageIndexChanging" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="uid"
               AutoColumnGenrated="false" ShowHeaderWhenEmpty="True"    AutoGenerateColumns="False">
                 <FooterStyle BackColor="White" ForeColor="#000066" />
                 <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
@@ -30,6 +30,7 @@
                 <SortedAscendingHeaderStyle BackColor="#007DBB" />
                 <SortedDescendingCellStyle BackColor="#CAC9C9" />
                 <SortedDescendingHeaderStyle BackColor="#00547E" />
+                 <PagerStyle BackColor="#99CCCC" ForeColor="#003399" HorizontalAlign="Left" /> 
                 <Columns>
                     <asp:TemplateField HeaderText="Name">
                         <ItemTemplate>
@@ -60,12 +61,12 @@
         </div>
         <div id="category"  style="display:none;margin-left:20%;">
          <center> 
-             Category Name:-<asp:TextBox ID="Category_Box" runat="server"></asp:Textbox><asp:ImageButton ID="Category" onclick="Category_Click" runat="server"  ImageUrl="~/img/search.png" Height="40px" ImageAlign="AbsBottom" Width="40px"></asp:ImageButton>
+             Category Name:-<asp:TextBox ID="Category_Box" runat="server"></asp:Textbox><asp:ImageButton ID="Category" onclick="Category_Click" runat="server"  ImageUrl="/themes/search.png" Height="40px" ImageAlign="AbsBottom" Width="40px"></asp:ImageButton>
                <hr/>
                 <asp:Label ID="Status1" runat="server" Text=""></asp:Label>
                <hr />
-            <asp:GridView  AutoPostBack="true" ID="Grid_Category" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="cat_id"
-              AutoColumnGenrated="false" ShowHeaderWhenEmpty="True"  ShowFooter="true"  OnRowDeleting="Grid_Category_RowDeleting"  OnRowCommand="Grid_Category_RowCommand"     AutoGenerateColumns="False">
+            <asp:GridView  AutoPostBack="true" PageSize="4" ID="Grid_Category" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="cat_id"
+              AutoColumnGenrated="false" ShowHeaderWhenEmpty="True" AllowPaging="true" OnPageIndexChanging="Grid_Category_PageIndexChanging"  ShowFooter="true"  OnRowDeleting="Grid_Category_RowDeleting"  OnRowCommand="Grid_Category_RowCommand"     AutoGenerateColumns="False" OnSelectedIndexChanged="Grid_Category_SelectedIndexChanged">
                 <FooterStyle BackColor="White" ForeColor="#000066" />
                 <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
                 <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
@@ -75,6 +76,7 @@
                 <SortedAscendingHeaderStyle BackColor="#007DBB" />
                 <SortedDescendingCellStyle BackColor="#CAC9C9" />
                 <SortedDescendingHeaderStyle BackColor="#00547E" />
+                 <PagerStyle BackColor="#99CCCC" ForeColor="#003399" HorizontalAlign="Left" /> 
                 <Columns>
                     <asp:TemplateField HeaderText="Name">
                         <ItemTemplate>
@@ -102,12 +104,12 @@
            
         </div>
         <div id="items" style="display:block;margin-left:20%;">
-           <center> Items Name:-<asp:TextBox ID="Item_Box" runat="server"></asp:Textbox><asp:ImageButton ID="ImageButton1" runat="server" onclick="ImageButton1_Click" ImageUrl="~/img/search.png" Height="40px" ImageAlign="AbsBottom" Width="40px"></asp:ImageButton>
+           <center> Items Name:-<asp:TextBox ID="Item_Box" runat="server"></asp:Textbox><asp:ImageButton ID="ImageButton1" runat="server" onclick="ImageButton1_Click1" ImageUrl="/themes/search.png" Height="40px" ImageAlign="AbsBottom" Width="40px"></asp:ImageButton>
                <hr/>
 <asp:Label ID="Status" runat="server" Text=""></asp:Label>
                <hr />
-            <asp:GridView  AutoPostBack="true" ID="Grid_items" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="pid"
-              AutoColumnGenrated="false" ShowHeaderWhenEmpty="True"    OnRowDeleting="Grid_items_RowDeleting" AutoGenerateColumns="False">
+            <asp:GridView  AutoPostBack="true" ID="Grid_items"  AllowPaging="true" PageSize="2" OnPageIndexChanging="Grid_items_PageIndexChanging" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="pid"
+              AutoColumnGenrated="false" ShowHeaderWhenEmpty="True"    OnRowDeleting="Grid_items_RowDeleting" AutoGenerateColumns="False" OnSelectedIndexChanged="Grid_items_SelectedIndexChanged">
                 <FooterStyle BackColor="White" ForeColor="#000066" />
                 <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
                 <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
@@ -117,7 +119,9 @@
                 <SortedAscendingHeaderStyle BackColor="#007DBB" />
                 <SortedDescendingCellStyle BackColor="#CAC9C9" />
                 <SortedDescendingHeaderStyle BackColor="#00547E" />
+                 <PagerStyle BackColor="#99CCCC" ForeColor="#003399" HorizontalAlign="Left" /> 
                 <Columns>
+                    
                     <asp:TemplateField HeaderText="Name">
                         <ItemTemplate>
                          
