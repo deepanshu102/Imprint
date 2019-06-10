@@ -6,76 +6,52 @@
 			</section>
 			<section class="main-content">				
 				<div class="row">						
-					<div class="span9">
+					<div class="span12">
 						<div class="row">
-							<div class="span4">
-								<a href="themes/images/ladies/1.jpg" class="thumbnail" data-fancybox-group="group1" title="Description 1"><img alt="" src="themes/images/ladies/1.jpg"></a>												
+							<div class="span5">
+								<a href="#" class="thumbnail" data-fancybox-group="group1" title="Description 1"><img alt="" src="themes/images/ladies/1.jpg"></a>												
 								<ul class="thumbnails small">								
 									<li class="span1">
 										<a href="themes/images/ladies/2.jpg" class="thumbnail" data-fancybox-group="group1" title="Description 2"><img src="themes/images/ladies/2.jpg" alt=""></a>
 									</li>								
-									<li class="span1">
-										<a href="themes/images/ladies/3.jpg" class="thumbnail" data-fancybox-group="group1" title="Description 3"><img src="themes/images/ladies/3.jpg" alt=""></a>
-									</li>													
-									<li class="span1">
-										<a href="themes/images/ladies/4.jpg" class="thumbnail" data-fancybox-group="group1" title="Description 4"><img src="themes/images/ladies/4.jpg" alt=""></a>
-									</li>
-									<li class="span1">
-										<a href="themes/images/ladies/5.jpg" class="thumbnail" data-fancybox-group="group1" title="Description 5"><img src="themes/images/ladies/5.jpg" alt=""></a>
-									</li>
+									
 								</ul>
 							</div>
-							<div class="span5">
-								<address>
-									<strong>Brand:</strong> <span>Apple</span><br>
-									<strong>Product Code:</strong> <span>Product 14</span><br>
-									<strong>Reward Points:</strong> <span>0</span><br>
-									<strong>Availability:</strong> <span>Out Of Stock</span><br>								
-								</address>									
-								<h4><strong>Price: $587.50</strong></h4>
+							<div class="span6">
+									
+									<h4><span><asp:Label ID="product" runat="server" Text=""></asp:Label></span></h4><br>
+								
+                                <h4><strong>Brand:</strong> <span><asp:Label ID="Brand" runat="server" Text=""></asp:Label></span></h4><br>
+									
+									<h4><strong>Availability:</strong> <span><asp:Label ID="stock" runat="server" Text=""></asp:Label></span></h4><br>								
+                                <asp:HiddenField ID="stock1" runat="server" />						
+								<h4><strong>Price: <asp:Label ID="price" runat="server" Text=""></asp:Label></strong></h4>
 							</div>
-							<div class="span5">
+							<div class="span6">
 								<form class="form-inline">
-									<label class="checkbox">
-										<input type="checkbox" value=""> Option one is this and that
-									</label>
-									<br/>
-									<label class="checkbox">
-									  <input type="checkbox" value=""> Be sure to include why it's great
-									</label>
 									<p>&nbsp;</p>
 									<label>Qty:</label>
-									<input type="text" class="span1" placeholder="1">
-                                    <asp:Button ID="Checkout" runat="server" Text="Add to Cart" />
-									<button class="btn btn-inverse" type="submit">Add to cart</button>
+                                    <asp:TextBox ID="quant"  class="span1" TextMode="Number"  Text="1" runat="server"></asp:TextBox>
+									<br />
+                                    <asp:Button ID="Button1" runat="server" Text="Add to Cart" />
+                                    <asp:Button ID="Checkout" runat="server" Text="Buy Now" />
+                                    
+                                    <asp:Button ID="Button2" runat="server" Text="Add to Wishlist" />
 								</form>
 							</div>							
 						</div>
 						<div class="row">
-							<div class="span9">
+							<div class="span12">
 								<ul class="nav nav-tabs" id="myTab">
 									<li class="active"><a href="#home">Description</a></li>
-									<li class=""><a href="#profile">Additional Information</a></li>
 								</ul>							 
 								<div class="tab-content">
-									<div class="tab-pane active" id="home">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem</div>
-									<div class="tab-pane" id="profile">
-										<table class="table table-striped shop_attributes">	
-											<tbody>
-												<tr class="">
-													<th>Size</th>
-													<td>Large, Medium, Small, X-Large</td>
-												</tr>		
-												<tr class="alt">
-													<th>Colour</th>
-													<td>Orange, Yellow</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
+									<div class="tab-pane active" id="home">
+                                        <asp:Label ID="desc" runat="server" Text=""></asp:Label></div>
+
 								</div>							
 							</div>						
-							<div class="span9">	
+							<div class="span12">	
 								<br>
 								<h4 class="title">
 									<span class="pull-left"><span class="text"><strong>Related</strong> Products</span></span>
@@ -87,7 +63,7 @@
 									<div class="carousel-inner">
 										<div class="active item">
 											<ul class="thumbnails listing-products">
-												<li class="span3">
+												<li class="span4">
 													<div class="product-box">
 														<span class="sale_tag"></span>												
 														<a href="product_detail.aspx"><img alt="" src="themes/images/ladies/6.jpg"></a><br/>
@@ -96,7 +72,7 @@
 														<p class="price">$341</p>
 													</div>
 												</li>
-												<li class="span3">
+												<li class="span4">
 													<div class="product-box">
 														<span class="sale_tag"></span>												
 														<a href="product_detail.aspx"><img alt="" src="themes/images/ladies/5.jpg"></a><br/>
@@ -105,7 +81,7 @@
 														<p class="price">$341</p>
 													</div>
 												</li>       
-												<li class="span3">
+												<li class="span4">
 													<div class="product-box">												
 														<a href="product_detail.aspx"><img alt="" src="themes/images/ladies/4.jpg"></a><br/>
 														<a href="product_detail.aspx" class="title">Praesent tempor sem</a><br/>
@@ -150,87 +126,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="span3 col">
-						<div class="block">	
-							<ul class="nav nav-list">
-								<li class="nav-header">SUB CATEGORIES</li>
-								<li><a href="products.aspx">Nullam semper elementum</a></li>
-								<li class="active"><a href="products.aspx">Phasellus ultricies</a></li>
-								<li><a href="products.aspx">Donec laoreet dui</a></li>
-								<li><a href="products.aspx">Nullam semper elementum</a></li>
-								<li><a href="products.aspx">Phasellus ultricies</a></li>
-								<li><a href="products.aspx">Donec laoreet dui</a></li>
-							</ul>
-							<br/>
-							<ul class="nav nav-list below">
-								<li class="nav-header">MANUFACTURES</li>
-								<li><a href="products.aspx">Adidas</a></li>
-								<li><a href="products.aspx">Nike</a></li>
-								<li><a href="products.aspx">Dunlop</a></li>
-								<li><a href="products.aspx">Yamaha</a></li>
-							</ul>
-						</div>
-						<div class="block">
-							<h4 class="title">
-								<span class="pull-left"><span class="text">Randomize</span></span>
-								<span class="pull-right">
-									<a class="left button" href="#myCarousel" data-slide="prev"></a><a class="right button" href="#myCarousel" data-slide="next"></a>
-								</span>
-							</h4>
-							<div id="myCarousel" class="carousel slide">
-								<div class="carousel-inner">
-									<div class="active item">
-										<ul class="thumbnails listing-products">
-											<li class="span3">
-												<div class="product-box">
-													<span class="sale_tag"></span>												
-													<a href="product_detail.aspx"><img alt="" src="themes/images/ladies/7.jpg"></a><br/>
-													<a href="product_detail.aspx" class="title">Fusce id molestie massa</a><br/>
-													<a href="#" class="category">Suspendisse aliquet</a>
-													<p class="price">$261</p>
-												</div>
-											</li>
-										</ul>
-									</div>
-									<div class="item">
-										<ul class="thumbnails listing-products">
-											<li class="span3">
-												<div class="product-box">												
-													<a href="product_detail.aspx"><img alt="" src="themes/images/ladies/8.jpg"></a><br/>
-													<a href="product_detail.aspx" class="title">Tempor sem sodales</a><br/>
-													<a href="#" class="category">Urna nec lectus mollis</a>
-													<p class="price">$134</p>
-												</div>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="block">								
-							<h4 class="title"><strong>Best</strong> Seller</h4>								
-							<ul class="small-product">
-								<li>
-									<a href="#" title="Praesent tempor sem sodales">
-										<img src="themes/images/ladies/1.jpg" alt="Praesent tempor sem sodales">
-									</a>
-									<a href="#">Praesent tempor sem</a>
-								</li>
-								<li>
-									<a href="#" title="Luctus quam ultrices rutrum">
-										<img src="themes/images/ladies/2.jpg" alt="Luctus quam ultrices rutrum">
-									</a>
-									<a href="#">Luctus quam ultrices rutrum</a>
-								</li>
-								<li>
-									<a href="#" title="Fusce id molestie massa">
-										<img src="themes/images/ladies/3.jpg" alt="Fusce id molestie massa">
-									</a>
-									<a href="#">Fusce id molestie massa</a>
-								</li>   
-							</ul>
-						</div>
-					</div>
+					
 				</div>
 			</section>		
 			<script>
