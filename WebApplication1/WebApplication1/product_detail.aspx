@@ -46,6 +46,7 @@
 									<p>&nbsp;</p>
 									<label>Qty:</label>
 									<input type="text" class="span1" placeholder="1">
+                                    <asp:Button ID="Checkout" runat="server" Text="Add to Cart" />
 									<button class="btn btn-inverse" type="submit">Add to cart</button>
 								</form>
 							</div>							

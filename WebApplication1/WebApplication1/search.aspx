@@ -109,7 +109,7 @@
 <asp:Label ID="Status" runat="server" Text=""></asp:Label>
                <hr />
             <asp:GridView  AutoPostBack="true" ID="Grid_items"  AllowPaging="true" PageSize="2" OnPageIndexChanging="Grid_items_PageIndexChanging" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="pid"
-              AutoColumnGenrated="false" ShowHeaderWhenEmpty="True"    OnRowDeleting="Grid_items_RowDeleting" AutoGenerateColumns="False" OnSelectedIndexChanged="Grid_items_SelectedIndexChanged">
+              AutoColumnGenrated="false" ShowHeaderWhenEmpty="True"    OnRowDeleting="Grid_items_RowDeleting" AutoGenerateColumns="False">
                 <FooterStyle BackColor="White" ForeColor="#000066" />
                 <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
                 <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />

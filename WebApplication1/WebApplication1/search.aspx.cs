@@ -343,10 +343,5 @@ namespace WebApplication1
                 parent.Connection_refuse();
             }
         }
-
-        protected void Grid_items_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
