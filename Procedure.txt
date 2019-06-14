@@ -201,3 +201,7 @@ begin
 	rollback transaction;
 	end catch
 end
+
+
+
+alter table product alter column pdesc nvarchar(maX) ;

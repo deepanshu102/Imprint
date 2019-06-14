@@ -14,7 +14,6 @@ namespace WebApplication1
     {
         String s;
         Connections parent;
-        static int ids = 0, key_id = 0,cart_id=0;
         List<String> keywords = new List<String>();
         string pids;
         protected void Page_Load(object sender, EventArgs e)
@@ -24,7 +23,7 @@ namespace WebApplication1
             if (!IsPostBack)
             {
                 Category_binder();
-                product_binder();
+              //  product_binder();
             }
         }
 
@@ -108,7 +107,7 @@ namespace WebApplication1
                         try
                         {
                             parent.Connection_establish();
-                            pids = "Pro" + ids;
+                            pids = "Pro" + Connections.ids;
                             
                             parent.cmd = new SqlCommand("add_product", Connections.con);
                             parent.cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -125,7 +124,7 @@ namespace WebApplication1
 
                             }
 
-                            ids++;
+                            Connections.ids++;
                             File_image.SaveAs(Server.MapPath("~/themes/images/product/") + File_image.FileName);
 
                         }
@@ -156,20 +155,20 @@ namespace WebApplication1
             {
 
                 parent.Connection_establish();
-                string keyid = "key" + key_id;
+                string keyid = "key" + Connections.key_id;
                 parent.cmd = new SqlCommand("add_key", Connections.con);
                 parent.cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 (parent.cmd.Parameters.AddWithValue("@pid", SqlDbType.NVarChar)).Value = pids;
                 (parent.cmd.Parameters.AddWithValue("@kid", SqlDbType.NVarChar)).Value = keyid;
                 (parent.cmd.Parameters.AddWithValue("@key", SqlDbType.NVarChar)).Value = ki;
-               
+             
                 if ((int)parent.cmd.ExecuteNonQuery() > 0)
                 {
 
 
                 }
 
-                key_id++;
+                Connections.key_id++;
 
 
             }
@@ -199,7 +198,7 @@ namespace WebApplication1
     {
         if (File_image.HasFile)
         {
-                Response.Write("Hello");
+                
             if (checkFileType(File_image.FileName))
             {
                     File_image.SaveAs(Server.MapPath("~/themes/images/product/") + File_image.FileName);
@@ -219,6 +218,8 @@ namespace WebApplication1
         {
 
         }
+
+        
 
         protected void Products_ItemCommand(object sender, ListViewCommandEventArgs e)
         {
@@ -240,13 +241,17 @@ namespace WebApplication1
                         parent.Connection_refuse();
                         
                         parent.Connection_establish();
-                        parent.cmd = new SqlCommand("insert into cart (cartid,pid,uid,quantity,bill) values(@cartid,@pid,@uid,@quant,@bills);", Connections.con);
-                        parent.cmd.Parameters.AddWithValue("@cartid", "Crt" + cart_id);
+                        parent.cmd = new SqlCommand("insert into cart (cartid,pid,uid,quantity,bill) values(@cartid,@pid,@id,@quant,@bills);", Connections.con);
+                        parent.cmd.Parameters.AddWithValue("@cartid", "Crt" + Connections.cart_id);
                         parent.cmd.Parameters.AddWithValue("@pid" ,e.CommandArgument.ToString());
-                        parent.cmd.Parameters.AddWithValue("@uid", ((List<String>)Session["users"])[0].ToString());
+                        parent.cmd.Parameters.AddWithValue("@id", ((List<string>)Session["user"])[0].ToString());
                         parent.cmd.Parameters.AddWithValue("@quant","1");
                         parent.cmd.Parameters.AddWithValue("@bills", bill);
-                        parent.cmd.ExecuteNonQuery();
+                        if ((int)parent.cmd.ExecuteNonQuery()>0)
+                        {
+                            Connections.cart_id++;
+                            Response.Write("<script>alert('Sucessfully added');</script>");
+                        }
                      
                     }
                     catch (Exception k)
@@ -287,6 +292,26 @@ namespace WebApplication1
                 case ".gif": return true;
                 default: return false;
             }
+        }
+
+        protected void DataPagerProducts_PreRender(object sender, EventArgs e)
+        {
+            try
+            {
+                parent.Connection_establish();
+                parent.cmd = new SqlCommand("products", Connections.con);
+                parent.cmd.CommandType = CommandType.StoredProcedure;
+                parent.da.SelectCommand = parent.cmd;
+                parent.da.Fill(parent.ds, "Products");
+                Products.DataSource = parent.ds.Tables["Products"].DefaultView;
+                Products.DataBind();
+
+            }
+            catch (Exception k)
+            { Response.Write(k.StackTrace); }
+            finally
+            { parent.Connection_refuse(); }
+
         }
     }
 }

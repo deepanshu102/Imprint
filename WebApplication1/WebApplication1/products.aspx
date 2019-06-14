@@ -82,18 +82,30 @@
 						<section class="main-content">
 				<br />
 				<div class="row">						
-					<div class="span9">
-                       
-                        <asp:ListView class="thumbnails listing-products"  onItemDeleting ="Products_ItemDeleting" OnItemCommand="Products_ItemCommand" ID="Products" DataKeyNames="pid" runat="server">
+					<div class="span12">
+                       <div class="">
+                           <div class="">
+                <asp:DataPager ID="DataPagerProducts" runat="server" PagedControlID="Products"
+    PageSize="12" OnPreRender="DataPagerProducts_PreRender">
+    <Fields>
+        <asp:NextPreviousPagerField ShowFirstPageButton="True" ShowNextPageButton="True" ButtonType="Button" ShowPreviousPageButton="False" />
+        <asp:NumericPagerField />
+        <asp:NextPreviousPagerField ShowLastPageButton="True" ShowPreviousPageButton="true" ButtonType="Button" ShowNextPageButton="False" />
+    </Fields>
+</asp:DataPager>
+                           </div>
+                       </div>
+                        <br />
+                        <asp:ListView class="thumbnails listing-products"    onItemDeleting ="Products_ItemDeleting" OnItemCommand="Products_ItemCommand" ID="Products" DataKeyNames="pid" runat="server">
                             <ItemTemplate>
                                                            
                                 <li style="list-style-type:none;" class="span3">
                                 <div class="product-box">												
-									<img alt="" src="<%#Eval("pimage") %>"><br/>
+									<img alt="" src="<%#Eval("pimage") %>" ><br/>
 									<asp:Label ID="name"  runat="server" CssClass="title" Text='<%#Eval("pname")%>'></asp:Label><br/>
 									<asp:Label ID="price" runat="server" CssClass="price" Text='<%#Eval("price") %>' ></asp:Label>
 									
-								</div>
+								
                                     <div class="bottom">
                                   
 
@@ -102,9 +114,12 @@
 										
 										
 								</div>
+                                    </div>
                                 </li>
+                                
                             </ItemTemplate>
-                        </asp:ListView>							
+                            				
+                            </asp:ListView>
 						<hr>
 						
 					</div>

@@ -21,8 +21,10 @@ namespace WebApplication1.Models
         internal SqlDataAdapter da;
         internal DataSet ds;
         internal DataView dv;
+        internal static int cart_id,ids,key_id;
         static Connections()
         {
+            cart_id = ids = key_id = 0;
             con = new SqlConnection(ConfigurationManager.ConnectionStrings["database_con"].ConnectionString);
             
         }

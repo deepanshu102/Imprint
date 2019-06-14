@@ -9,17 +9,19 @@
 					<div class="span12">
 						<div class="row">
 							<div class="span5">
-								<a href="#" class="thumbnail" data-fancybox-group="group1" title="Description 1"><img alt="" src="themes/images/ladies/1.jpg"></a>												
+								<a href="#" class="thumbnail" data-fancybox-group="group1" title="Description 1">
+                                <asp:Image ID="pro_image" runat="server" /></a>												
 								<ul class="thumbnails small">								
 									<li class="span1">
-										<a href="themes/images/ladies/2.jpg" class="thumbnail" data-fancybox-group="group1" title="Description 2"><img src="themes/images/ladies/2.jpg" alt=""></a>
+										<a href="themes/images/ladies/2.jpg" class="thumbnail" data-fancybox-group="group1" title="Description 2">
+                                <asp:Image ID="pro_image1" runat="server" /></a>
 									</li>								
 									
 								</ul>
 							</div>
 							<div class="span6">
 									
-									<h4><span><asp:Label ID="product" runat="server" Text=""></asp:Label></span></h4><br>
+									<h1><span><asp:Label ID="product" runat="server" Text=""></asp:Label></span></h1><br>
 								
                                 <h4><strong>Brand:</strong> <span><asp:Label ID="Brand" runat="server" Text=""></asp:Label></span></h4><br>
 									
@@ -28,16 +30,16 @@
 								<h4><strong>Price: <asp:Label ID="price" runat="server" Text=""></asp:Label></strong></h4>
 							</div>
 							<div class="span6">
-								<form class="form-inline">
+								<div class="form-inline">
 									<p>&nbsp;</p>
 									<label>Qty:</label>
                                     <asp:TextBox ID="quant"  class="span1" TextMode="Number"  Text="1" runat="server"></asp:TextBox>
 									<br />
-                                    <asp:Button ID="Button1" runat="server" Text="Add to Cart" />
-                                    <asp:Button ID="Checkout" runat="server" Text="Buy Now" />
+                                   <h1> <asp:Label ID="unstock" runat="server" Text=""></asp:Label></h1>
+                                    <asp:Button ID="cart" runat="server" Text="Add to Cart" Cssclass="btn btn-danger" OnClick="cart_Click" />
+                                    <asp:Button ID="Checkout" runat="server" Text="Buy Now" CssClass="btn btn-success" OnClick="Checkout_Click" />
                                     
-                                    <asp:Button ID="Button2" runat="server" Text="Add to Wishlist" />
-								</form>
+								</div>
 							</div>							
 						</div>
 						<div class="row">
@@ -91,7 +93,7 @@
 												</li>												
 											</ul>
 										</div>
-										<div class="item">
+										<div class="  item">
 											<ul class="thumbnails listing-products">
 												<li class="span3">
 													<div class="product-box">

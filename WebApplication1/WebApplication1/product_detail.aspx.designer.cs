@@ -13,6 +13,24 @@ namespace WebApplication1 {
     public partial class product_detail {
         
         /// <summary>
+        /// pro_image control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image pro_image;
+        
+        /// <summary>
+        /// pro_image1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image pro_image1;
+        
+        /// <summary>
         /// product control.
         /// </summary>
         /// <remarks>
@@ -67,13 +85,22 @@ namespace WebApplication1 {
         protected global::System.Web.UI.WebControls.TextBox quant;
         
         /// <summary>
-        /// Button1 control.
+        /// unstock control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Label unstock;
+        
+        /// <summary>
+        /// cart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button cart;
         
         /// <summary>
         /// Checkout control.
@@ -83,15 +110,6 @@ namespace WebApplication1 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Checkout;
-        
-        /// <summary>
-        /// Button2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button2;
         
         /// <summary>
         /// desc control.
