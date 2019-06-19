@@ -78,6 +78,7 @@ namespace WebApplication1
                         parent.Connection_establish();
                         parent.cmd = new SqlCommand("insert into cart (cartid,pid,uid,quantity,bill) values(@cartid,@pid,@id,@quant,@bills);", Connections.con);
                         parent.cmd.Parameters.AddWithValue("@cartid", "Crt" + Connections.cart_id);
+                       
                         parent.cmd.Parameters.AddWithValue("@pid", Request.Cookies["products"].Value);
                         parent.cmd.Parameters.AddWithValue("@id", ((List<string>)Session["user"])[0].ToString());
                         parent.cmd.Parameters.AddWithValue("@quant",quant.Text);
@@ -91,7 +92,7 @@ namespace WebApplication1
                     }
                     catch (Exception k)
                     {
-
+                        Response.Write(Request.Cookies["products"].Value);
                         Response.Write(k.StackTrace);
                     }
                     finally

@@ -12,7 +12,7 @@ namespace WebApplication1
     public partial class search : System.Web.UI.Page
     {
         Connections parent;
-        static int ids = 0;
+        static int ids = 1;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["user"] != null)
@@ -20,6 +20,7 @@ namespace WebApplication1
                 parent = new Connections();
                 if (!IsPostBack)
                 {
+                    dropdownBinder();
                     PopulateGridview();//FOr items
                     PopulateGridView1();//FOr Category
                     PopulateGridView2();//For Users
@@ -28,6 +29,27 @@ namespace WebApplication1
             else
             {
                 Response.Redirect("/");
+            }
+        }
+        private void dropdownBinder()
+        {
+            try
+            {
+                if (Connections.con != null && Connections.con.State == System.Data.ConnectionState.Closed)
+                    parent.Connection_establish();
+                parent.cmd = new SqlCommand("select * from super_category", Connections.con);
+               
+                Primary_category.DataSource = parent.cmd.ExecuteReader();
+                Primary_category.DataBind();
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                parent.Connection_refuse();
             }
         }
 
@@ -191,6 +213,7 @@ namespace WebApplication1
                         parent.cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         (parent.cmd.Parameters.AddWithValue("@catid", SqlDbType.NVarChar)).Value = "cat" + ids;
                         (parent.cmd.Parameters.AddWithValue("@catname", SqlDbType.NVarChar)).Value = ((Grid_Category.FooterRow.FindControl("Category_text") as TextBox).Text).Trim();
+                        (parent.cmd.Parameters.AddWithValue("@s_cat_id", SqlDbType.NVarChar)).Value = Primary_category.SelectedItem.Value;
                         if ((int)parent.cmd.ExecuteNonQuery() > 0)
                         {
                             ids++;
@@ -342,6 +365,11 @@ namespace WebApplication1
             {
                 parent.Connection_refuse();
             }
+        }
+
+        protected void Primary_category_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

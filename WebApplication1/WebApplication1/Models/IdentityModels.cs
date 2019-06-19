@@ -24,7 +24,7 @@ namespace WebApplication1.Models
         internal static int cart_id,ids,key_id;
         static Connections()
         {
-            cart_id = ids = key_id = 0;
+            cart_id = ids = key_id =45 ;
             con = new SqlConnection(ConfigurationManager.ConnectionStrings["database_con"].ConnectionString);
             
         }
