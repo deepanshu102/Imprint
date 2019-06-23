@@ -202,6 +202,110 @@ begin
 	end catch
 end
 
+USE [project]
+GO
+
+/****** Object:  Table [dbo].[super_category]    Script Date: 6/20/2019 12:07:36 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[super_category](
+	[s_cat_id] [nvarchar](50) NOT NULL,
+	[name] [nvarchar](max) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[s_cat_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
 
 
 alter table product alter column pdesc nvarchar(maX) ;
+
+alter table [dbo].[order] add quantity nvarchar(10)
+alter table [dbo].[order] add amount nvarchar(10)
+alter table payment alter column order_id nvarchar(10)
+alter table payment add  foreign key(order_id) references [DBO].[ORDER](oid)
+
+
+USE [project]
+GO
+
+/****** Object:  StoredProcedure [dbo].[add_super_category]    Script Date: 6/20/2019 12:16:31 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+create procedure [dbo].[add_super_category] 
+@id nvarchar(50),
+@name nvarchar (max)
+as begin 
+insert into super_category(s_cat_id,name) values (@id,@name)
+end
+
+
+
+GO
+
+
+USE [project]
+GO
+
+/****** Object:  StoredProcedure [dbo].[add_category]    Script Date: 6/20/2019 12:16:50 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+ ALTER procedure [dbo].[add_category]
+ @catid nvarchar(10),
+ @catname nvarchar(50),
+ @s_cat_id nvarchar(50)
+ as 
+ begin
+	insert into category(cat_id,catname,s_catid) Values(@catid,@catname,@s_cat_id);
+ end
+GO
+
+USE [project]
+GO
+/****** Object:  StoredProcedure [dbo].[orders]    Script Date: 6/20/2019 12:17:31 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [dbo].[orders]
+@id nvarchar(10)
+as begin
+select * from [dbo].[order],product where [dbo].[order].uid=@id and [dbo].[order].pid=product.pid;
+end
+
+USE [project]
+GO
+/****** Object:  StoredProcedure [dbo].[del_product]    Script Date: 6/20/2019 2:47:47 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [dbo].[del_product]
+@id nvarchar(50)
+as
+begin 
+	begin Transaction
+	begin try
+		delete from keywords where pid=@id;
+		delete from product where pid=@id;
+	commit Transaction;
+	end try
+	begin catch
+	rollback transaction;
+	end catch
+end
+

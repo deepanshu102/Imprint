@@ -19,7 +19,7 @@ namespace WebApplication1
         protected void Page_Load(object sender, EventArgs e)
         {
              parent = new Connections(); ;
-
+            s = "/themes/images/product/";
             if (!IsPostBack)
             {
                 Category_binder();
@@ -103,12 +103,18 @@ namespace WebApplication1
 
             if (IsValid)
             {
-             
+                if (File_image.HasFile)
+                {
+
+                    if (checkFileType(File_image.FileName))
+                    {
+                       s+= File_image.FileName;
+                        Response.Write(s);
                         try
                         {
                             parent.Connection_establish();
                             pids = "Pro" + Connections.ids;
-                            
+
                             parent.cmd = new SqlCommand("add_product", Connections.con);
                             parent.cmd.CommandType = System.Data.CommandType.StoredProcedure;
                             (parent.cmd.Parameters.AddWithValue("@pid", SqlDbType.NVarChar)).Value = pids;
@@ -117,8 +123,8 @@ namespace WebApplication1
                             (parent.cmd.Parameters.AddWithValue("@price", SqlDbType.NVarChar)).Value = price.Text;
                             (parent.cmd.Parameters.AddWithValue("@catid", SqlDbType.NVarChar)).Value = Category.SelectedItem.Value;
                             (parent.cmd.Parameters.AddWithValue("@stock", SqlDbType.NVarChar)).Value = Stock.Text;
-                            (parent.cmd.Parameters.AddWithValue("@pimage", SqlDbType.NVarChar)).Value = s;
-                       
+                            (parent.cmd.Parameters.AddWithValue("@pimage",SqlDbType.NVarChar)).Value = "/themes/images/product/"+File_image.FileName;
+
                             if ((int)parent.cmd.ExecuteNonQuery() > 0)
                             {
 
@@ -129,7 +135,7 @@ namespace WebApplication1
 
                         }
                         catch (Exception k)
-                        { Response.Write(k.StackTrace); }
+                        { Response.Write(k.Message); }
                         finally
                         {
                             parent.Connection_refuse();
@@ -142,7 +148,12 @@ namespace WebApplication1
                         initials();
 
                         Response.Write("<script>alert('sucessfull inserted');</script>");
-                  
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('Select only jpg or png Image');</script>");
+                    }
+                }
 
                 }
             }
@@ -174,7 +185,7 @@ namespace WebApplication1
             }
             catch (Exception K)
             {
-                Response.Write(K.StackTrace);
+                Response.Write(K);
             }
 
             finally
@@ -203,6 +214,7 @@ namespace WebApplication1
             {
                     File_image.SaveAs(Server.MapPath("~/themes/images/product/") + File_image.FileName);
                     s = "/themes/images/product/" + File_image.FileName;
+                    Response.Write(s);
                    
             }
 
@@ -312,6 +324,28 @@ namespace WebApplication1
             finally
             { parent.Connection_refuse(); }
 
+        }
+
+        protected void File_image_DataBinding1(object sender, EventArgs e)
+        {
+            if (File_image.HasFile)
+            {
+
+                if (checkFileType(File_image.FileName))
+                {
+                    File_image.SaveAs(Server.MapPath("~/themes/images/product/") + File_image.FileName);
+                    s = "/themes/images/product/" + File_image.FileName;
+                    Response.Write(s);
+
+                }
+
+
+                else
+                {
+                    Response.Write("<script>alert('Select only jpg or png Image');</script>");
+                }
+            }
+            
         }
     }
 }

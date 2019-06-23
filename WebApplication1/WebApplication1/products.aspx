@@ -44,7 +44,7 @@
                 </tr>
                 <tr>
                     <td>
-                       Item Image</td><td><asp:FileUpload ID="File_image"  AutoPostBack="true" required="" runat="server" placeholder="Enter Item Name" OnDataBinding="File_image_DataBinding">  </asp:FileUpload>
+                       Item Image</td><td><asp:FileUpload ID="File_image"  AutoPostBack="True" required="" runat="server" placeholder="Enter Item Name" OnDataBinding="File_image_DataBinding1">  </asp:FileUpload>
                     </td>
                 </tr>
                      <tr>
