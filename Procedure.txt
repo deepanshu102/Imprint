@@ -308,4 +308,38 @@ begin
 	rollback transaction;
 	end catch
 end
+USE [project]
+GO
+/****** Object:  StoredProcedure [dbo].[add_product]    Script Date: 6/23/2019 11:52:33 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [dbo].[add_product] 
+@catid nvarchar(10),
+@pid nvarchar(10),
+@name nvarchar(50),
+@desc nvarchar(50),
+@pimage nvarchar(MAX),
+@price nvarchar(10),
+@stock nvarchar(50)
+as 
+begin
+	insert into product (cat_id,pid,pname,pdesc,pimage,price,stock) Values(@catid,@pid,@name,@desc,@pimage,@price,@stock);
 
+end 
+
+create procedure view_Cart
+@uid nvarchar(10)
+as
+begin
+select * from cart,product where uid=@uid and cart.pid=product.pid;
+end
+
+
+create procedure del_cart
+@cart_id nvarchar(10)
+as
+begin
+delete from cart where cartid=@cart_id;
+end

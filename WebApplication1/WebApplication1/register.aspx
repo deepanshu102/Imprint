@@ -98,7 +98,7 @@
                                              <td><center>  <div>
 									<label>Phone:</label>
 									<div>
-                                        <asp:TextBox ID="phone"  placeholder="Enter your Phone" CssClass="input-xlarge" runat="server"></asp:TextBox><br />
+                                        <asp:TextBox ID="phone"  placeholder="Enter your Phone" TextMode="Number" CssClass="input-xlarge" runat="server"></asp:TextBox><br />
 										  <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Phone should not be Empty" ControlToValidate="phone" Display="Dynamic" ForeColor="Red" SetFocusOnError="True" ValidationGroup="registration" Visible="true">Phone should not be Empty</asp:RequiredFieldValidator>
 						
 									</div>

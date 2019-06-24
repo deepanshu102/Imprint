@@ -123,7 +123,7 @@ namespace WebApplication1
                             (parent.cmd.Parameters.AddWithValue("@price", SqlDbType.NVarChar)).Value = price.Text;
                             (parent.cmd.Parameters.AddWithValue("@catid", SqlDbType.NVarChar)).Value = Category.SelectedItem.Value;
                             (parent.cmd.Parameters.AddWithValue("@stock", SqlDbType.NVarChar)).Value = Stock.Text;
-                            (parent.cmd.Parameters.AddWithValue("@pimage",SqlDbType.NVarChar)).Value = "/themes/images/product/"+File_image.FileName;
+                            (parent.cmd.Parameters.AddWithValue("@pimage",SqlDbType.NVarChar)).Value = s;
 
                             if ((int)parent.cmd.ExecuteNonQuery() > 0)
                             {
@@ -251,7 +251,7 @@ namespace WebApplication1
                         bill = parent.dr[0].ToString();
 
                         parent.Connection_refuse();
-                        
+                                             
                         parent.Connection_establish();
                         parent.cmd = new SqlCommand("insert into cart (cartid,pid,uid,quantity,bill) values(@cartid,@pid,@id,@quant,@bills);", Connections.con);
                         parent.cmd.Parameters.AddWithValue("@cartid", "Crt" + Connections.cart_id);
@@ -326,26 +326,5 @@ namespace WebApplication1
 
         }
 
-        protected void File_image_DataBinding1(object sender, EventArgs e)
-        {
-            if (File_image.HasFile)
-            {
-
-                if (checkFileType(File_image.FileName))
-                {
-                    File_image.SaveAs(Server.MapPath("~/themes/images/product/") + File_image.FileName);
-                    s = "/themes/images/product/" + File_image.FileName;
-                    Response.Write(s);
-
-                }
-
-
-                else
-                {
-                    Response.Write("<script>alert('Select only jpg or png Image');</script>");
-                }
-            }
-            
-        }
-    }
+          }
 }

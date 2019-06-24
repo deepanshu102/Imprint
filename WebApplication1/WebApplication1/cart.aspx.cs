@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -14,14 +15,17 @@ namespace WebApplication1
         Connections parent;
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            parent = new Connections();
-            if (!IsPostBack)
+            if (Session["user"] != null)
             {
-                gridbinder();
-            }
+                parent = new Connections();
+                if (!IsPostBack)
+                {
+                    gridbinder();
+                }
 
-           
+            }
+            else
+            { Response.Redirect("/"); }
            
         }
 
@@ -32,14 +36,16 @@ namespace WebApplication1
                 parent.Connection_establish();
                 parent.cmd = new System.Data.SqlClient.SqlCommand("view_Cart", Connections.con);
                 parent.cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                (parent.cmd.Parameters.AddWithValue("@uid", SqlDbType.NVarChar)).Value = "geet";
+                (parent.cmd.Parameters.AddWithValue("@uid", SqlDbType.NVarChar)).Value = ((List<string>)Session["user"])[0].ToString();
                 parent.da.SelectCommand = parent.cmd;
                 parent.da.Fill(parent.ds, "Cart");
                 GridView1.DataSource = parent.ds.Tables["Cart"].DefaultView;
                 GridView1.DataBind();
             }
-            catch
-            { }
+            catch (Exception k)
+            {
+                Response.Write(k);
+            }
             finally
             { parent.Connection_refuse(); }
         }
@@ -49,8 +55,39 @@ namespace WebApplication1
 
         }
 
-        protected void GridView1_RowDeleted(object sender, GridViewDeletedEventArgs e)
+        
+        protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
+
+            GridView1.PageIndex = e.NewPageIndex;
+            gridbinder();
+
+        }
+
+        protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+
+            try
+            {
+                parent.Connection_establish();
+                parent.cmd = new System.Data.SqlClient.SqlCommand("del_cart", Connections.con);
+                parent.cmd.CommandType = CommandType.StoredProcedure;
+                parent.cmd.Parameters.AddWithValue("@cart_id", SqlDbType.NVarChar).Value = GridView1.DataKeys[e.RowIndex].Value.ToString().Trim();
+                if((int)parent.cmd.ExecuteNonQuery()==1)
+                {
+                }
+                else
+                {
+                    Response.Write("Some Issues Try later");
+                }
+            }
+            catch(Exception K)
+            {
+                Response.Write(K);
+            }
+            finally
+            { parent.Connection_refuse(); }
+            gridbinder();
 
         }
 
@@ -59,18 +96,37 @@ namespace WebApplication1
 
         }
 
-        protected void GridView1_RowUpdated(object sender, GridViewUpdatedEventArgs e)
+        protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
+            String bill;
+            try
+            { parent.Connection_establish();
+                parent.cmd = new SqlCommand("select price from product,cart where cartid=@id and product.pid=cart.pid", Connections.con);
+                parent.cmd.Parameters.AddWithValue("@id", GridView1.DataKeys[e.RowIndex].Value.ToString().Trim());
+                parent.dr = parent.cmd.ExecuteReader();
+                parent.dr.Read();
+                bill = parent.dr[0].ToString();
 
-        }
-        
+                parent.Connection_refuse();
+                string quant = ((TextBox)(GridView1.Rows[GridView1.SelectedIndex].FindControl("ed_quant"))).Text;
+                 bill = (Int32.Parse(bill) * Int32.Parse(quant)) + "";
 
-        protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
+                parent.Connection_establish();
+                parent.cmd = new SqlCommand("update cart set quantity=@1,bill=@2 where cartid=@cartid;", Connections.con);
+                parent.cmd.Parameters.AddWithValue("@cartid", GridView1.DataKeys[e.RowIndex].Value.ToString().Trim());
+                parent.cmd.Parameters.AddWithValue("@1", quant);
+                parent.cmd.Parameters.AddWithValue("@2", bill);
+                if ((int)parent.cmd.ExecuteNonQuery() > 0)
+                {
+                  
+                }
 
-            GridView1.PageIndex = e.NewPageIndex;
+            }
+            catch (Exception K)
+            { Response.Write(K); }
+            finally
+            { parent.Connection_refuse(); }
             gridbinder();
-
         }
     }
 }

@@ -21,6 +21,8 @@ namespace WebApplication1.Models
         internal SqlDataAdapter da;
         internal DataSet ds;
         internal DataView dv;
+
+        internal DataTable dt;
         internal static int cart_id,ids,key_id;
         static Connections()
         {

@@ -1,9 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="products.aspx.cs" Inherits="WebApplication1.products" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 <section class="header_text sub">
-		 <% if (Session["user"] != null)
-             {
-                 if (((List<string>)Session["user"])[1].ToString() == "A")//for admin 
+		 <% 
+                 if (Session["user"] != null && ((List<string>)Session["user"])[1].ToString() == "A")//for admin 
                  { %>
             <div>
            <table>
@@ -44,7 +43,7 @@
                 </tr>
                 <tr>
                     <td>
-                       Item Image</td><td><asp:FileUpload ID="File_image"  AutoPostBack="True" required="" runat="server" placeholder="Enter Item Name" OnDataBinding="File_image_DataBinding1">  </asp:FileUpload>
+                       Item Image</td><td><asp:FileUpload ID="File_image"  AutoPostBack="True" required="" runat="server" placeholder="Enter Item Name">  </asp:FileUpload>
                     </td>
                 </tr>
                      <tr>
@@ -75,7 +74,7 @@
     
     
     
-    	<%} }%>
+    	<% }%>
         
    <img class="pageBanner" src="themes/images/pageBanner.png" alt="New products" >
 				<h4><span>New products</span></h4>

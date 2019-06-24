@@ -16,6 +16,7 @@ namespace WebApplication1
     public partial class SiteMaster : MasterPage
     {
         Connections parent;
+        
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
         private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
         private string _antiXsrfTokenValue;
@@ -73,7 +74,52 @@ namespace WebApplication1
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            parent = new Connections();
+            try
+            {
+                parent.Connection_establish();
+                parent.cmd = new SqlCommand("select * from super_category", Connections.con);
+                parent.da.SelectCommand = parent.cmd;
+                parent.da.Fill(parent.ds, "Super");
+                ListView1.DataSource = parent.ds.Tables["Super"].DefaultView;
+                ListView1.DataBind();
+               /* parent.Connection_refuse();
+                parent.dt = new DataTable();
+                parent.dt = parent.ds.Tables["Super"];
+                for (int i = 0; i < parent.dt.Rows.Count; i++)
+                {
+                    ListBox libox = new ListBox();
+                    ListItemCollection obj = new ListItemCollection();
+                                
+                    try
+                    {
+                        parent.Connection_establish();
+                        parent.cmd = new SqlCommand("Select * from category where s_catid=@1", Connections.con);
+                        parent.cmd.Parameters.AddWithValue("@1", parent.dt.Rows[i][0]);
+                        parent.dr = parent.cmd.ExecuteReader();
+                        while (parent.dr.Read())
+                        {
 
+                            obj.Add(new ListItem(parent.dr["catname"].ToString(), parent.dr["cat_id"].ToString()));
+
+                        }
+                    }
+                    catch
+                    { }
+                    finally
+                    { parent.Connection_refuse(); }
+                    
+
+                }*/
+              
+            }
+            catch (Exception k)
+            {
+                Response.Write(k);
+            }
+            finally
+            { parent.Connection_refuse(); }
+            
         }
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)

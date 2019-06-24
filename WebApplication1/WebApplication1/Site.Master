@@ -89,7 +89,8 @@
 						<ul class="user-menu">				
 							<li><a href="profile.aspx">My Account</a></li>
 							<li><a href="cart.aspx">Your Cart</a></li>
-							<li><a href="checkout.aspx">Checkout</a></li>					
+							<li><a href="checkout.aspx">Checkout</a></li>	
+                            <li><a href="orders.aspx">orders</a></li>					
 							<li>
                               
                                 <asp:LinkButton ID="LinkButton1" OnClick="logout_Click" runat="server">Logout</asp:LinkButton>
@@ -105,8 +106,14 @@
 				<div class="navbar-inner main-menu">				
 					<a href="/" class="logo pull-left"><img src="themes/images/logo.png" class="site_logo" alt=""></a>
 					<nav id="menu" class="pull-right">
-						<ul>
-							<li><a href="./products.aspx">Woman</a>					
+                       <ul> <asp:ListView ID="ListView1" runat="server">
+                        <itemTemplate>
+                            <li><a href="products.aspx"><%#Eval("name")%> </a>
+                                  
+                        </itemTemplate>
+                        </asp:ListView>
+						
+							<!--<li><a href="./products.aspx">Woman</a>					
 								<ul>
 									<li><a href="./products.aspx">Lacinia nibh</a></li>									
 									<li><a href="./products.aspx">Eget molestie</a></li>
@@ -123,7 +130,7 @@
 							</li>							
 							<li><a href="./products.aspx">Hangbag</a></li>
 							<li><a href="./products.aspx">Best Seller</a></li>
-							<li><a href="./products.aspx">Top Seller</a></li>
+							<li><a href="./products.aspx">Top Seller</a></li>-->
 						</ul>
 					</nav>
 				</div>
@@ -146,8 +153,19 @@
 				<div class="navbar-inner main-menu">				
 					<a href="/" class="logo pull-left"><img src="themes/images/logo.png" class="site_logo" alt=""></a>
 					<nav id="menu" class="pull-right">
-						<ul>
-							<li><a href="./products.aspx">Woman</a>					
+				<ul> <asp:ListView ID="ListView2" runat="server">
+                        <itemTemplate>
+                            <li><a href="#"><%#Eval("name")%> </a>
+                                <ul>
+                                     <li> <asp:Label runat="server" Text='<%@Eval("catname")%>' />
+                                        </li>
+                                    
+                                    </ul>
+                                </li>
+                        </itemTemplate>
+                        </asp:ListView>
+						
+							<!--<li><a href="./products.aspx">Woman</a>					
 								<ul>
 									<li><a href="./products.aspx">Lacinia nibh</a></li>									
 									<li><a href="./products.aspx">Eget molestie</a></li>
@@ -164,7 +182,7 @@
 							</li>							
 							<li><a href="./products.aspx">Hangbag</a></li>
 							<li><a href="./products.aspx">Best Seller</a></li>
-							<li><a href="./products.aspx">Top Seller</a></li>
+							<li><a href="./products.aspx">Top Seller</a></li>-->
 						</ul>
 					</nav>
 				</div>

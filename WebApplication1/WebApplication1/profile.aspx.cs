@@ -16,7 +16,7 @@ namespace WebApplication1
         {
 
             parent = new Connections();
-            if (Session["user"] != null && (!(IsPostBack)))
+            if (Session["user"] != null)
             {
                 Profile();
             }
@@ -51,7 +51,7 @@ namespace WebApplication1
             }
             catch (Exception k)
             {
-                Response.Write(k.StackTrace);
+                Response.Write(k);
             }
             finally
             {
@@ -72,9 +72,11 @@ namespace WebApplication1
                     (parent.cmd.Parameters.AddWithValue("@address", SqlDbType.NVarChar)).Value = address.Text.Trim();
                     (parent.cmd.Parameters.AddWithValue("@phone", SqlDbType.NVarChar)).Value = phone.Text.Trim();
                     (parent.cmd.Parameters.AddWithValue("@email", SqlDbType.NVarChar)).Value = email.Text.Trim();
-                    if ((int)parent.cmd.ExecuteNonQuery() > 1)
+                    if ((int)parent.cmd.ExecuteNonQuery() >=2)
                     {
+                       // ((List<string>)Session["user"]).Insert(0, username.Text.Trim());
                         Response.Write("<script>alert('Sucessfully updated');</script>");
+                        Response.Write(((List<string>)Session["user"])[0].ToString());
                     }
                     else
                     {
