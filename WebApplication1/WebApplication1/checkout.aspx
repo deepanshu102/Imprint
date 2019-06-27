@@ -10,53 +10,53 @@
 						<div class="accordion" id="accordion2">
 							<div class="accordion-group">
 								<div class="accordion-heading">
-									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">Checkout Options</a>
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">Checkout</a>
 								</div>
 								<div id="collapseOne" class="accordion-body in collapse">
 									<div class="accordion-inner">
 										<div class="row-fluid">
 											<div class="span6">
-												<h4>New Customer</h4>
-												<p>By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.</p>
-												<form action="#" method="post">
+												<h4>Product Details</h4>
 													<fieldset>
 														<label class="radio" for="register">
-															<input type="radio" name="account" value="register" id="register" checked="checked">Register Account
+                                                            <asp:Image ID="product_image" ImageUrl="" runat="server" />
 														</label>
-														<label class="radio" for="guest">
-															<input type="radio" name="account" value="guest" id="guest">Guest Checkout
-														</label>
+                                                            <h3><asp:Label ID="product_name" for="guest" runat="server" Text=""></asp:Label></h3>
+														     <asp:Label ID="product_des" for="guest" runat="server" Text=""></asp:Label> <br />
+														   <b> <asp:Label ID="product_price" for="guest" runat="server" Text=""></asp:Label></b>X
+                                                        <b><asp:Label ID="quantity" runat="server" Text=""></asp:Label></b>=
+														 <b>   <asp:Label ID="product_bill" for="guest" runat="server" Text=""></asp:Label></b>
 														<br>
-														<button class="btn btn-inverse" data-toggle="collapse" data-parent="#collapse2">Continue</button>
+													
 													</fieldset>
-												</form>
+												
 											 </div>
 											 <div class="span6">
 												<h4>Returning Customer</h4>
 												<p>I am a returning customer</p>
-												<form action="#" method="post">
-													<fieldset>
-														<div class="control-group">
-															<label class="control-label">Username</label>
-															<div class="controls">
-																<input type="text" placeholder="Enter your username" id="username" class="input-xlarge">
-															</div>
-														</div>
-														<div class="control-group">
-															<label class="control-label">Password</label>
-															<div class="controls">
-															<input type="password" placeholder="Enter your password" id="password" class="input-xlarge">
-															</div>
-														</div>
-														<button class="btn btn-inverse">Continue</button>
+								<fieldset>
+                                    Name:-<asp:Label ID="user_name" for="guest" runat="server" Text=""></asp:Label> <br />
+														  
+													Email:-	     <asp:Label ID="email" for="guest" runat="server" Text=""></asp:Label> <br />
+														   Address: <asp:Label ID="address" for="guest" runat="server" Text=""></asp:Label>
+                                                           <br />Phone:- <asp:Label ID="phone" runat="server" Text=""></asp:Label>
+													
 													</fieldset>
-												</form>
+												
+												
 											</div>
+                                            
 										</div>
 									</div>
 								</div>
+                                <input type="hidden" runat="server" id="key" name="key" value="gtKFFx" />
+        <input type="hidden" runat="server" id="salt" name="salt" value="eCwWELxi" />
+        <input type="hidden" runat="server" id="hash" name="hash" value=""  />
+        <input type="hidden" runat="server" id="txnid" name="txnid" value="" />
+
+                                <asp:Button ID="place" runat="server" OnClick="place_Click"  Text="Confirm to place order" />
 							</div>
-							<div class="accordion-group">
+							<!--<div class="accordion-group">
 								<div class="accordion-heading">
 									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">Account &amp; Billing Details</a>
 								</div>
@@ -165,8 +165,8 @@
 									</div>
 								</div>
 							</div>
+                        <div class="accordion" id="accordion2">
 							<div class="accordion-group">
-								<div class="accordion-heading">
 									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">Confirm Order</a>
 								</div>
 								<div id="collapseThree" class="accordion-body collapse">
@@ -182,7 +182,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
+							</div>-->
 						</div>				
 					</div>
 				</div>

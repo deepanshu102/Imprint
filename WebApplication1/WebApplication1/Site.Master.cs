@@ -81,8 +81,17 @@ namespace WebApplication1
                 parent.cmd = new SqlCommand("select * from super_category", Connections.con);
                 parent.da.SelectCommand = parent.cmd;
                 parent.da.Fill(parent.ds, "Super");
-                ListView1.DataSource = parent.ds.Tables["Super"].DefaultView;
-                ListView1.DataBind();
+                if (Session["user"] != null)
+                {
+                    ListView1.DataSource = parent.ds.Tables["Super"].DefaultView;
+                    ListView1.DataBind();
+                }
+                else
+                {
+
+                    ListView2.DataSource = parent.ds.Tables["Super"].DefaultView;
+                    ListView2.DataBind();
+                }
                /* parent.Connection_refuse();
                 parent.dt = new DataTable();
                 parent.dt = parent.ds.Tables["Super"];

@@ -18,7 +18,10 @@ namespace WebApplication1
             parent = new Connections();
             if (Session["user"] != null)
             {
-                Profile();
+                if (!IsPostBack)
+                {
+                    Profile();
+                }
             }
             else
             {
@@ -67,16 +70,15 @@ namespace WebApplication1
                     parent.Connection_establish();
                     parent.cmd = new System.Data.SqlClient.SqlCommand("profile_updation", Connections.con);
                     parent.cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    (parent.cmd.Parameters.AddWithValue("@userid", SqlDbType.NVarChar)).Value = username.Text.Trim();
                     (parent.cmd.Parameters.AddWithValue("@uid", SqlDbType.NVarChar)).Value = ((List<string>)Session["user"])[0].ToString();
                     (parent.cmd.Parameters.AddWithValue("@address", SqlDbType.NVarChar)).Value = address.Text.Trim();
                     (parent.cmd.Parameters.AddWithValue("@phone", SqlDbType.NVarChar)).Value = phone.Text.Trim();
                     (parent.cmd.Parameters.AddWithValue("@email", SqlDbType.NVarChar)).Value = email.Text.Trim();
-                    if ((int)parent.cmd.ExecuteNonQuery() >=2)
+                    if ((int)parent.cmd.ExecuteNonQuery() >0)
                     {
                        // ((List<string>)Session["user"]).Insert(0, username.Text.Trim());
                         Response.Write("<script>alert('Sucessfully updated');</script>");
-                        Response.Write(((List<string>)Session["user"])[0].ToString());
+                        //Response.Write(((List<string>)Session["user"])[0].ToString());
                     }
                     else
                     {
@@ -91,8 +93,9 @@ namespace WebApplication1
                 finally
                 {
                     parent.Connection_refuse();
-                    Profile();
+                   
                 }
+                Profile();
             }
 
         }

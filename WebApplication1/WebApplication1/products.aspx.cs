@@ -259,7 +259,7 @@ namespace WebApplication1
                         parent.cmd.Parameters.AddWithValue("@id", ((List<string>)Session["user"])[0].ToString());
                         parent.cmd.Parameters.AddWithValue("@quant","1");
                         parent.cmd.Parameters.AddWithValue("@bills", bill);
-                        if ((int)parent.cmd.ExecuteNonQuery()>0)
+                        if (parent.cmd.ExecuteNonQuery()>0)
                         {
                             Connections.cart_id++;
                             Response.Write("<script>alert('Sucessfully added');</script>");
@@ -300,8 +300,7 @@ namespace WebApplication1
             {
                 case ".jpg":
                 case ".png":
-                case ".jpeg":
-                case ".gif": return true;
+                case ".jpeg": return true;
                 default: return false;
             }
         }

@@ -63,7 +63,7 @@
 								</h4>
 								<div id="myCarousel-1" class="carousel slide">
 									<div class="carousel-inner">
-										<div class="active item">
+										<div class=" item">
 											<ul class="thumbnails listing-products">
 												<li class="span4">
 													<div class="product-box">

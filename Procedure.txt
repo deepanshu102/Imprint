@@ -343,3 +343,70 @@ as
 begin
 delete from cart where cartid=@cart_id;
 end
+
+
+USE [project]
+GO
+/****** Object:  StoredProcedure [dbo].[orders]    Script Date: 6/24/2019 11:52:00 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [dbo].[orders]
+@id nvarchar(10)
+as begin
+select oid,[order].quantity,[order].amount,[order].odate,[order].paymode,product.pid,product.cat_id,product.pdesc,product.pimage,product.pname,product.price,product.stock,(select sum(convert(int,amount))from [order] as Orders where uid=@id) as Total from [order]
+inner join [product] on [order].pid=[product].pid  where [order].uid=@id order by [order].odate desc
+
+
+end
+
+USE [project]
+GO
+/****** Object:  StoredProcedure [dbo].[profile_updation]    Script Date: 6/25/2019 3:12:45 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [dbo].[profile_updation]
+	
+	@uid nvarchar(10),
+	@address nvarchar(100),
+	@phone nvarchar(50),
+	@email nvarchar(50)
+	as
+begin
+	Begin Try
+		Begin Transaction
+		ALTER TABLE login NOCHECK CONSTRAINT FK__login__uid__08B54D69
+	
+			update users set  phone=@phone,address=@address,email=@email where uid=@uid
+			Commit Transaction
+
+		End try
+		Begin Catch
+		Rollback Transaction
+	
+		end catch
+end
+
+create procedure add_orders
+@id nvarchar(10),
+@Uid nvarchar(10),
+@pid nvarchar(10),
+@qty nvarchar(10),
+@amount nvarchar(10),
+@txnid nvarchar(max)
+as 
+begin
+begin try
+begin transaction
+		insert into [order] (oid,uid,pid,paymode,quantity,amount) Values(@id,@Uid,@pid,'Online',@qty,@amount);
+		insert into payment (uid,payid,transid,order_id) Values(@Uid,'P'+@id,@txnid,@id);
+		commit transaction
+		end try
+		begin catch
+		rollback transaction
+		end catch
+		end
+

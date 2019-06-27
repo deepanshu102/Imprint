@@ -92,7 +92,6 @@ namespace WebApplication1
                     }
                     catch (Exception k)
                     {
-                        Response.Write(Request.Cookies["products"].Value);
                         Response.Write(k.StackTrace);
                     }
                     finally
@@ -115,7 +114,19 @@ namespace WebApplication1
 
         protected void Checkout_Click(object sender, EventArgs e)
         {
+            if (Session["user"] != null)
+            {
 
+                Response.Cookies["quantity"].Value = quant.Text;
+                Response.Cookies["quantity"].Expires = DateTime.Now.AddDays(7);
+                Response.Redirect("checkout.aspx");
+            }
+            else
+            {
+                Response.Cookies["quantity"].Value = quant.Text;
+                Response.Cookies["quantity"].Expires= DateTime.Now.AddDays(7); 
+                Response.Redirect("register.aspx");
+            }
         }
     }
 }

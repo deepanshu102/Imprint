@@ -2,9 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
      <%if (Session["user"] != null)
     {
-
-        if ((((List<string>)Session["user"])[1].ToString()) == "A")
-        { %>
+ %>
   <section class="header_text">
 				<table>
                     <tr>
@@ -69,5 +67,5 @@
 			</section>
 
         <%}
-    }%>
+    %>
 </asp:Content>

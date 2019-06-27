@@ -37,8 +37,9 @@
          <div id="top-bar" class="container">
 			<div class="row">
 				<div class="span4">
-					
-						<input type="text" class="input-block-level search-query" Placeholder="eg. T-sirt">
+
+                    <asp:TextBox ID="Text" class="input-block-level search-query"  Placeholder="eg. T-sirt"  runat="server" AutoCompleteType="Search"></asp:TextBox>
+						
 			
 				</div>
                 <% if (Session["user"] != null)
@@ -88,6 +89,8 @@
 					<div class="account pull-right">
 						<ul class="user-menu">				
 							<li><a href="profile.aspx">My Account</a></li>
+                            
+							<li><a href="changepassword.aspx">Change Password</a></li>
 							<li><a href="cart.aspx">Your Cart</a></li>
 							<li><a href="checkout.aspx">Checkout</a></li>	
                             <li><a href="orders.aspx">orders</a></li>					
@@ -155,13 +158,8 @@
 					<nav id="menu" class="pull-right">
 				<ul> <asp:ListView ID="ListView2" runat="server">
                         <itemTemplate>
-                            <li><a href="#"><%#Eval("name")%> </a>
-                                <ul>
-                                     <li> <asp:Label runat="server" Text='<%@Eval("catname")%>' />
-                                        </li>
-                                    
-                                    </ul>
-                                </li>
+                            <li><a href="products.aspx"><%#Eval("name")%> </a>
+                          
                         </itemTemplate>
                         </asp:ListView>
 						

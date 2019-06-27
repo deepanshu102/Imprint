@@ -108,9 +108,10 @@ namespace WebApplication1
                 bill = parent.dr[0].ToString();
 
                 parent.Connection_refuse();
-                string quant = ((TextBox)(GridView1.Rows[GridView1.SelectedIndex].FindControl("ed_quant"))).Text;
-                 bill = (Int32.Parse(bill) * Int32.Parse(quant)) + "";
-
+                String quant =( GridView1.Rows[e.RowIndex].FindControl("ed_quant") as TextBox).Text;
+                bill = (Int32.Parse(bill) * Int32.Parse(quant)) + "";
+                Response.Write("<script>alert('" + bill + quant + "');</script>");
+                
                 parent.Connection_establish();
                 parent.cmd = new SqlCommand("update cart set quantity=@1,bill=@2 where cartid=@cartid;", Connections.con);
                 parent.cmd.Parameters.AddWithValue("@cartid", GridView1.DataKeys[e.RowIndex].Value.ToString().Trim());
@@ -126,6 +127,13 @@ namespace WebApplication1
             { Response.Write(K); }
             finally
             { parent.Connection_refuse(); }
+            GridView1.EditIndex = -1;
+            gridbinder();
+        }
+
+        protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            GridView1.EditIndex = -1;
             gridbinder();
         }
     }
