@@ -41,11 +41,18 @@ namespace WebApplication1
 
                         obj.Add(parent.dr[0].ToString());
                         obj.Add(parent.dr[2].ToString());
+                        
                        // Response.Write("<script>alert('"+parent.dr[0].ToString()+"');</script>");
                         Session["user"] = obj;
                         //if (Request.Cookies["products"]==null)
-                        Response.Redirect("profile.aspx");
-                        
+                        if (parent.dr[2].ToString().Equals("A"))
+                        {
+                            Response.Redirect("profile.aspx");
+                        }
+                        else
+                        {
+                            Response.Redirect("products.aspx");
+                        }
                     }
                     else
                     {

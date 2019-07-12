@@ -23,10 +23,10 @@ namespace WebApplication1.Models
         internal DataView dv;
 
         internal DataTable dt;
-        internal static int cart_id,ids,key_id;
+        internal static int cart_id,ids,key_id,order_id;
         static Connections()
         {
-            cart_id = ids = key_id=1 ;
+            cart_id = ids = key_id=order_id=1 ;
             con = new SqlConnection(ConfigurationManager.ConnectionStrings["database_con"].ConnectionString);
             
         }

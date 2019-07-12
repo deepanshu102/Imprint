@@ -45,6 +45,7 @@ namespace WebApplication1
                 parent.dr=parent.cmd.ExecuteReader();
                 while (parent.dr.Read())
                 {
+                    pid.Value = parent.dr["pid"].ToString();
                     product_image.ImageUrl = parent.dr["pimage"].ToString();
                     product_name.Text = parent.dr["pname"].ToString();
                     product_price.Text = parent.dr["price"].ToString();
@@ -66,6 +67,7 @@ namespace WebApplication1
 
         protected void place_Click(object sender, EventArgs e)
         {
+            insert_orders();
 
             Double amount = Convert.ToDouble(product_bill.Text);
 
@@ -102,8 +104,8 @@ namespace WebApplication1
             data.Add("udf4", "1");
             data.Add("udf5", "1");
 
-            data.Add("surl", "http://localhost:51571/SuccessPayment.aspx/"+txnid.Value);
-            data.Add("furl", "http://localhost:51571/FailurePayment.aspx"+txnid.Value);
+            data.Add("surl", "http://localhost:51571/SuccessPayment.aspx/txn="+txnid.Value);
+            data.Add("furl", "http://localhost:51571/FailurePayment.aspx/txn="+txnid.Value);
 
             data.Add("service_provider", "");
             string strForm = PreparePOSTForm("https://test.payu.in/_payment", data);
@@ -144,6 +146,46 @@ namespace WebApplication1
             return strForm.ToString() + strScript.ToString();
         }
 
+        void insert_orders()
+        {
+            
+                try
+                {
+                    parent.Connection_establish();
+                    parent.cmd = new SqlCommand("add_orders", Connections.con);
+                    parent.cmd.CommandType = CommandType.StoredProcedure;
+                    (parent.cmd.Parameters.AddWithValue("@id", SqlDbType.NVarChar)).Value = "Order" + Connections.order_id;
+                    (parent.cmd.Parameters.AddWithValue("@pid", SqlDbType.NVarChar)).Value = pid.Value;
+                    (parent.cmd.Parameters.AddWithValue("@qty", SqlDbType.NVarChar)).Value = quantity.Text;
+                  
+                    (parent.cmd.Parameters.AddWithValue("@txnid", SqlDbType.NVarChar)).Value = txnid.Value;
+                    (parent.cmd.Parameters.AddWithValue("@Uid", SqlDbType.NVarChar)).Value = ((List<string>)Session["user"])[0].ToString();
+                (parent.cmd.Parameters.AddWithValue("@amount", SqlDbType.NVarChar)).Value = product_bill.Text;
 
+
+                if ((int)parent.cmd.ExecuteNonQuery() >= 2)
+                    {
+                    Response.Cookies["products"].Value = txnid.Value;
+                        Response.Write("<script>alert('Sucessfully order placed');</script>");
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('UnSucessfull order');</script>");
+
+                    }
+
+                }
+                catch (Exception K)
+                {
+                Response.Write(K.Message);
+
+                }
+                finally
+                {
+                    parent.Connection_refuse();
+                }
+            
+
+        }
     }
 }
