@@ -56,6 +56,10 @@
                         </ItemTemplate>                    
                     </asp:TemplateField>
                 </Columns>
+                
+                <EmptyDataTemplate>
+                    No Data Found
+                </EmptyDataTemplate>
                  </asp:GridView>
                </center>
         </div>
@@ -79,7 +83,12 @@
                 <SortedAscendingHeaderStyle BackColor="#007DBB" />
                 <SortedDescendingCellStyle BackColor="#CAC9C9" />
                 <SortedDescendingHeaderStyle BackColor="#00547E" />
+
                  <PagerStyle BackColor="#99CCCC" ForeColor="#003399" HorizontalAlign="Left" /> 
+                
+                <EmptyDataTemplate>
+                    No Data Found
+                </EmptyDataTemplate>
                 <Columns>
                     <asp:TemplateField HeaderText="Name">
                         <ItemTemplate>
@@ -113,15 +122,6 @@
                <hr />
             <asp:GridView  AutoPostBack="true" ID="Grid_items"  AllowPaging="true" PageSize="2" OnPageIndexChanging="Grid_items_PageIndexChanging" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="pid"
               AutoColumnGenrated="false" ShowHeaderWhenEmpty="True"    OnRowDeleting="Grid_items_RowDeleting" AutoGenerateColumns="False">
-                <FooterStyle BackColor="White" ForeColor="#000066" />
-                <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
-                <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
-                <RowStyle ForeColor="#000066" />
-                <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
-                <SortedAscendingCellStyle BackColor="#F1F1F1" />
-                <SortedAscendingHeaderStyle BackColor="#007DBB" />
-                <SortedDescendingCellStyle BackColor="#CAC9C9" />
-                <SortedDescendingHeaderStyle BackColor="#00547E" />
                  <PagerStyle BackColor="#99CCCC" ForeColor="#003399" HorizontalAlign="Left" /> 
                 <Columns>
                     
@@ -166,6 +166,18 @@
                     </asp:ButtonField>
                  
                 </Columns>
+                <EmptyDataTemplate>
+                    No Data Found
+                </EmptyDataTemplate>
+                <FooterStyle BackColor="White" ForeColor="#000066" />
+                <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
+                <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
+                <RowStyle ForeColor="#000066" />
+                <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
+                <SortedAscendingCellStyle BackColor="#F1F1F1" />
+                <SortedAscendingHeaderStyle BackColor="#007DBB" />
+                <SortedDescendingCellStyle BackColor="#CAC9C9" />
+                <SortedDescendingHeaderStyle BackColor="#00547E" />
             </asp:GridView>
                </center>
         </div>

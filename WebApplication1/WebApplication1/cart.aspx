@@ -24,10 +24,6 @@
            
         </ItemTemplate>
         
-        <FooterTemplate>
-            <asp:TextBox ID="TextBox1" Text='<%#Bind("Total") %>' runat="server"></asp:TextBox>
-            
-        </FooterTemplate>
     </asp:TemplateField>
     <asp:TemplateField HeaderText="Quantity">
          <ItemTemplate>
@@ -39,9 +35,6 @@
             <asp:TextBox ID="ed_quant" TextMode="Number" runat="server" Text='<%#Bind("quantity") %>'></asp:TextBox>
         </EditItemTemplate>
         
-        <FooterTemplate>
-             <br /><h1><%#Eval("Total") %></h1>
-        </FooterTemplate>
     </asp:TemplateField>
     <asp:TemplateField HeaderText="Price" SortExpression="pprice">
         <ItemTemplate>
@@ -52,18 +45,11 @@
         <ItemTemplate>
             <asp:Image ID="arrow1" runat="server" ImageUrl='<%#Bind("pimage") %>' Width="100" Height="100" />
         </ItemTemplate>
-        
-        <FooterTemplate>
-             <br /><h1><%#Eval("Total") %></h1>
-        </FooterTemplate>
     </asp:TemplateField>
     <asp:TemplateField HeaderText="Item Total price">
         <ItemTemplate>
             <asp:Label ID="Label4" runat="server" Text='<%#Bind("bill") %>'></asp:Label>
         </ItemTemplate>
-        <FooterTemplate>
-             <br /><h1><%#Eval("Total") %></h1>
-        </FooterTemplate>
     </asp:TemplateField>
     
     <asp:TemplateField HeaderText="">
@@ -86,7 +72,9 @@
                        <SortedDescendingHeaderStyle BackColor="#00547E" />
     </asp:GridView>
                         
-
+                        <div align="right">
+                            <asp:Button ID="Button5" OnClick="Button5_Click" CssClass="btn btn-danger" runat="server" Text="Check Out" />
+                        </div>
 					
 						
                         				

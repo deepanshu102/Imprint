@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="checkout.aspx.cs" Inherits="WebApplication1.checkout" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 <section class="header_text sub">
-			<img class="pageBanner" src="themes/images/pageBanner.png" alt="New products" >
+			m<img class="pageBanner" src="themes/images/pageBanner.png" alt="New products" >
 				<h4><span>Check Out</span></h4>
 			</section>	
 			<section class="main-content">
@@ -14,6 +14,8 @@
 								</div>
 								<div id="collapseOne" class="accordion-body in collapse">
 									<div class="accordion-inner">
+                                        <%if (!Request.Cookies["quantity"].Value.Equals("Cart"))
+                                            { %>
 										<div class="row-fluid">
 											<div class="span6">
 												<h4>Product Details</h4>
@@ -47,6 +49,47 @@
 											</div>
                                             
 										</div>
+                                        <%}
+                                            else
+                                            { %>
+                                            <div class="row-fluid">
+                                                <div class="span5 ">
+                                              				<h4>Returning Customer</h4>
+												<p>I am a returning customer</p>
+								<fieldset>
+                                    Name:-<asp:Label ID="name1" for="guest" runat="server" Text=""></asp:Label> <br />
+														  
+													Email:-	     <asp:Label ID="email1" for="guest" runat="server" Text=""></asp:Label> <br />
+														   Address: <asp:Label ID="address1" for="guest" runat="server" Text=""></asp:Label>
+                                                           <br />Phone:- <asp:Label ID="phone1" runat="server" Text=""></asp:Label>
+													
+													</fieldset>
+												
+                                                </div>
+                                                <div class="span7 btn">
+                                                    <h4 class="btn-danger">Products Details</h4>
+                                                    <ul style="list-style-type: none;">
+                                                          <asp:ListView ID="ListView1" runat="server">
+                                                              <ItemTemplate>
+                                                                 <li class="row row-fluid"> <div class="span3"><ul style="list-style: none;list-style-type: none;" ><li>
+                                                                     <b> <asp:Label ID="Label1" runat="server" Text='<%#Eval("pname") %>'></asp:Label>
+                                                                 </b>
+                                                                                <asp:Label ID="Label2" CssClass="center" runat="server" Text='<%#Eval("quantity") %>'></asp:Label>X<asp:Label ID="Label4" runat="server" Text='<%#Eval("price") %>'></asp:Label>
+                                                                  </li></ul></div>
+                                                                  <div class="span4">
+                                                                    <ul style="list-style: none;list-style-type: none;">  <li>
+                                                                          
+                                                                      <asp:Label ID="Label3" runat="server" Text='<%#Eval("bill") %>'></asp:Label>
+                                                                      </li></ul>
+                                                                  </div></li>
+                                                              </ItemTemplate>
+                                                          </asp:ListView>
+                                                        </ul>
+                                                  <b>Total</b>     <asp:Label ID="Total" runat="server" Text='<%#Eval("sum") %>'></asp:Label>
+
+                                                </div> 
+                                            </div>
+                                        <%} %>
 									</div>
 								</div>
                                 <input type="hidden" runat="server" id="key" name="key" value="gtKFFx" />

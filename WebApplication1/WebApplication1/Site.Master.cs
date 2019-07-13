@@ -124,7 +124,7 @@ namespace WebApplication1
             }
             catch (Exception k)
             {
-                Response.Write(k);
+                Response.Write(k.Message+"\n"+k.StackTrace);
             }
             finally
             { parent.Connection_refuse(); }

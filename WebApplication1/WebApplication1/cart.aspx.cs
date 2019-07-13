@@ -136,5 +136,23 @@ namespace WebApplication1
             GridView1.EditIndex = -1;
             gridbinder();
         }
+
+        protected void Button5_Click(object sender, EventArgs e)
+        {
+
+            if (Session["user"] != null)
+            {
+
+                Response.Cookies["quantity"].Value = "Cart";
+                Response.Cookies["quantity"].Expires = DateTime.Now.AddDays(7);
+                Response.Redirect("checkout.aspx");
+            }
+            else
+            {
+                Response.Cookies["quantity"].Value = "cart";
+                Response.Cookies["quantity"].Expires = DateTime.Now.AddDays(7);
+                Response.Redirect("register.aspx");
+            }
+        }
     }
 }
