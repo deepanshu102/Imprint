@@ -1,0 +1,458 @@
+//For Registration
+create procedure register 
+@userid nvarchar(10),
+@pass nvarchar(50),
+@name nvarchar(50),
+@phone nvarchar(50),
+@email nvarchar(50),
+@address nvarchar(100)
+as
+begin
+	begin try
+		begin transaction
+			insert into users(uid,uname,phone,email,address) Values(@userid,@name,@phone,@email,@address);
+			insert into login(uid,pwd,role) Values (@userid,HASHBYTES('SHA2_512',@pass),'U');
+		commit transaction
+	end try
+	begin catch
+		rollback transaction
+	end catch
+end
+
+create procedure profile_updation
+	@userid nvarchar(10),
+	@uid nvarchar(10),
+	@address nvarchar(100),
+	@phone nvarchar(50),
+	@email nvarchar(50)
+	as
+begin
+	Begin Try
+		Begin Transaction
+		ALTER TABLE login NOCHECK CONSTRAINT FK__login__uid__08B54D69
+	
+			update users set  phone=@phone,address=@address,email=@email,uid=@userid where uid=@uid
+			update login set uid=@userid where uid=@uid
+			Commit Transaction
+		print @userid
+		End try
+		Begin Catch
+		Rollback Transaction
+		print 'Failed'
+		end catch
+end
+
+//For Authenticate at login tym
+create procedure Authenticate 
+@userid nvarchar(10),
+@pass nvarchar(50)
+as
+begin
+	select * from login where uid=@userid and pwd=HASHBYTES('SHA2_512',@pass);
+end
+
+create procedure add_category
+ @catid nvarchar(10),
+ @catname nvarchar(50)
+ as 
+ begin
+	insert into category(cat_id,catname) Values(@catid,@catname);
+ end
+
+
+create procedure add_product 
+	@catid nvarchar(10),
+	@pid nvarchar(10),
+	@name nvarchar(50),
+	@desc nvarchar(50),
+	@pimage nvarchar(20),
+	@price nvarchar(10),
+	@stock nvarchar(50)
+as 
+begin
+	insert into product (cat_id,pid,pname,pdesc,pimage,price,stock) Values(@catid,@pid,@name,@desc,@pimage,@price,@stock);
+end 
+
+create procedure add_key
+	@pid nvarchar(10),
+	@kid nvarchar(10),
+	@key nvarchar(50)
+as 
+begin
+	insert into keywords(pid,kid,keyword) Values(@pid,@kid,@key);
+end
+
+
+create procedure add_wishlist
+@wishid nvarchar(10),
+@pid nvarchar(10),
+@uid nvarchar(10),
+@stockstatus nvarchar(50)
+as 
+begin
+Declare @count int 
+	select @count=count(*) from product where pid=@pid and stock>=@stockstatus
+	if @count>0
+	begin
+	insert into wishlist(wishid,pid,uid,ss) Values(@wishid,@pid,@uid,@stockstatus)
+
+	end
+	else
+	begin
+	return @count
+	end
+end
+
+create procedure add_cart
+@cartid nvarchar(10),
+@pid nvarchar(10),
+@uid nvarchar(10),
+@quant nvarchar(50)
+
+as 
+begin 
+Declare @bill_cal int
+	select @bill_cal=price from product where pid=@pid and stock>@quant;
+	insert into cart (cartid,pid,uid,quantity,bill) values(@cartid,@pid,@uid,@quant,@bill_cal*@quant);
+end
+
+
+//orders related procedure left
+//query related procedure left
+//feedback related procedure left for you 
+
+
+
+create procedure Profile
+@uid nvarchar(10)
+as
+begin
+select * from users,login where login.uid=users.uid and users.uid=@uid;
+end
+create procedure products
+as
+begin
+select * from product,category,keywords where product.cat_id=category.cat_id and product.pid=keywords.pid;
+end
+create procedure A_User
+as
+begin 
+select * from users,login where login.uid=users.uid and login.role='U';
+end
+create procedure queries
+@uid nvarchar(10),
+@role nvarchar(50)
+as
+begin
+if @role='A'
+begin
+	select * from query where qid<>(select qid from query where Response<>' ') order by qdate desc;
+end
+else
+begin 
+select * from query where  uid=@uid;
+end
+end
+
+CREATE PROCEDURE LoginTimeUpdater
+@id nvarchar(10)
+as 
+begin
+update login set LLDATE=GETDATE() where uid=@id;
+end
+
+create procedure changepassword
+@uid nvarchar(10),
+@password nvarchar(50),
+@pass nvarchar(50)
+as
+begin 
+	update login set pwd=HASHBYTES('SHA2_512',@pass) where uid=@uid and pwd=HASHBYTES('SHA2_512',@password)
+end
+create procedure categories
+as
+begin 
+select * from category
+end
+
+
+USE [project]
+GO
+/****** Object:  StoredProcedure [dbo].[products]    Script Date: 6/1/2019 12:53:59 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [dbo].[products]
+as
+begin
+select * from product,category,keywords where product.cat_id=category.cat_id or product.pid=keywords.pid;
+end
+create procedure del_product
+@id nvarchar(50)
+as
+begin 
+	begin Transaction
+	begin try
+		delete from product where pid=@id;
+	commit Transaction;
+	end try
+	begin catch
+	rollback transaction;
+	end catch
+end
+
+USE [project]
+GO
+
+/****** Object:  Table [dbo].[super_category]    Script Date: 6/20/2019 12:07:36 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[super_category](
+	[s_cat_id] [nvarchar](50) NOT NULL,
+	[name] [nvarchar](max) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[s_cat_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+
+
+alter table product alter column pdesc nvarchar(maX) ;
+
+alter table [dbo].[order] add quantity nvarchar(10)
+alter table [dbo].[order] add amount nvarchar(10)
+alter table payment alter column order_id nvarchar(10)
+alter table payment add  foreign key(order_id) references [DBO].[ORDER](oid)
+
+
+USE [project]
+GO
+
+/****** Object:  StoredProcedure [dbo].[add_super_category]    Script Date: 6/20/2019 12:16:31 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+create procedure [dbo].[add_super_category] 
+@id nvarchar(50),
+@name nvarchar (max)
+as begin 
+insert into super_category(s_cat_id,name) values (@id,@name)
+end
+
+
+
+GO
+
+
+USE [project]
+GO
+
+/****** Object:  StoredProcedure [dbo].[add_category]    Script Date: 6/20/2019 12:16:50 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+ ALTER procedure [dbo].[add_category]
+ @catid nvarchar(10),
+ @catname nvarchar(50),
+ @s_cat_id nvarchar(50)
+ as 
+ begin
+	insert into category(cat_id,catname,s_catid) Values(@catid,@catname,@s_cat_id);
+ end
+GO
+
+USE [project]
+GO
+/****** Object:  StoredProcedure [dbo].[orders]    Script Date: 6/20/2019 12:17:31 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [dbo].[orders]
+@id nvarchar(10)
+as begin
+select * from [dbo].[order],product where [dbo].[order].uid=@id and [dbo].[order].pid=product.pid;
+end
+
+USE [project]
+GO
+/****** Object:  StoredProcedure [dbo].[del_product]    Script Date: 6/20/2019 2:47:47 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [dbo].[del_product]
+@id nvarchar(50)
+as
+begin 
+	begin Transaction
+	begin try
+		delete from keywords where pid=@id;
+		delete from product where pid=@id;
+	commit Transaction;
+	end try
+	begin catch
+	rollback transaction;
+	end catch
+end
+USE [project]
+GO
+/****** Object:  StoredProcedure [dbo].[add_product]    Script Date: 6/23/2019 11:52:33 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [dbo].[add_product] 
+@catid nvarchar(10),
+@pid nvarchar(10),
+@name nvarchar(50),
+@desc nvarchar(50),
+@pimage nvarchar(MAX),
+@price nvarchar(10),
+@stock nvarchar(50)
+as 
+begin
+	insert into product (cat_id,pid,pname,pdesc,pimage,price,stock) Values(@catid,@pid,@name,@desc,@pimage,@price,@stock);
+
+end 
+
+create procedure view_Cart
+@uid nvarchar(10)
+as
+begin
+select * from cart,product where uid=@uid and cart.pid=product.pid;
+end
+
+
+create procedure del_cart
+@cart_id nvarchar(10)
+as
+begin
+delete from cart where cartid=@cart_id;
+end
+
+
+USE [project]
+GO
+/****** Object:  StoredProcedure [dbo].[orders]    Script Date: 6/24/2019 11:52:00 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [dbo].[orders]
+@id nvarchar(10)
+as begin
+select oid,[order].quantity,[order].amount,[order].odate,[order].paymode,product.pid,product.cat_id,product.pdesc,product.pimage,product.pname,product.price,product.stock,(select sum(convert(int,amount))from [order] as Orders where uid=@id) as Total from [order]
+inner join [product] on [order].pid=[product].pid  where [order].uid=@id order by [order].odate desc
+
+
+end
+
+USE [project]
+GO
+/****** Object:  StoredProcedure [dbo].[profile_updation]    Script Date: 6/25/2019 3:12:45 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [dbo].[profile_updation]
+	
+	@uid nvarchar(10),
+	@address nvarchar(100),
+	@phone nvarchar(50),
+	@email nvarchar(50)
+	as
+begin
+	Begin Try
+		Begin Transaction
+		ALTER TABLE login NOCHECK CONSTRAINT FK__login__uid__08B54D69
+	
+			update users set  phone=@phone,address=@address,email=@email where uid=@uid
+			Commit Transaction
+
+		End try
+		Begin Catch
+		Rollback Transaction
+	
+		end catch
+end
+
+create procedure add_orders
+@id nvarchar(10),
+@Uid nvarchar(10),
+@pid nvarchar(10),
+@qty nvarchar(10),
+@amount nvarchar(10),
+@txnid nvarchar(max)
+as 
+begin
+begin try
+begin transaction
+		insert into [order] (oid,uid,pid,paymode,quantity,amount) Values(@id,@Uid,@pid,'Online',@qty,@amount);
+		insert into payment (uid,payid,transid,order_id) Values(@Uid,'P'+@id,@txnid,@id);
+		commit transaction
+		end try
+		begin catch
+		rollback transaction
+		end catch
+		end
+
+
+
+USE [project]
+GO
+
+/****** Object:  StoredProcedure [dbo].[add_product]    Script Date: 31-10-2019 00:53:45 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+alter procedure [dbo].[add_product] 
+@catid nvarchar(10),
+@pid nvarchar(10),
+@name nvarchar(50),
+@desc nvarchar(max),
+@pimage nvarchar(MAX),
+@price nvarchar(10),
+@stock nvarchar(50)
+as 
+begin
+	insert into product (cat_id,pid,pname,pdesc,pimage,price,stock) Values(@catid,@pid,@name,@desc,@pimage,@price,@stock);
+
+end 
+
+GO
+USE [project]
+GO
+
+/****** Object:  StoredProcedure [dbo].[products]    Script Date: 31-10-2019 01:03:59 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+alter procedure [dbo].[products]
+as
+begin
+select * from product,category where product.cat_id=category.cat_id;
+end
+
+GO
+
+
