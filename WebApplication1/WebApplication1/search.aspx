@@ -61,12 +61,15 @@
         </div>
         <div id="category"  style="display:none;margin-left:20%;">
          <center> 
+             Primary Category:<asp:DropDownList ID="Primary_category" OnSelectedIndexChanged="Primary_category_SelectedIndexChanged"  DataTextField="name" DataValueField="s_cat_id" runat="server">
+ 
+                              </asp:DropDownList>
              Category Name:-<asp:TextBox ID="Category_Box" runat="server"></asp:Textbox><asp:ImageButton ID="Category" onclick="Category_Click" runat="server"  ImageUrl="/themes/search.png" Height="40px" ImageAlign="AbsBottom" Width="40px"></asp:ImageButton>
                <hr/>
                 <asp:Label ID="Status1" runat="server" Text=""></asp:Label>
                <hr />
             <asp:GridView  AutoPostBack="true" PageSize="4" ID="Grid_Category" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="cat_id"
-              AutoColumnGenrated="false" ShowHeaderWhenEmpty="True" AllowPaging="true" OnPageIndexChanging="Grid_Category_PageIndexChanging"  ShowFooter="true"  OnRowDeleting="Grid_Category_RowDeleting"  OnRowCommand="Grid_Category_RowCommand"     AutoGenerateColumns="False" OnSelectedIndexChanged="Grid_Category_SelectedIndexChanged">
+              AutoColumnGenrated="false" ShowfooterWhenEmpty="true" ShowHeaderWhenEmpty="True" AllowPaging="true" OnPageIndexChanging="Grid_Category_PageIndexChanging"  ShowFooter="true"  OnRowDeleting="Grid_Category_RowDeleting"  OnRowCommand="Grid_Category_RowCommand"     AutoGenerateColumns="False" OnSelectedIndexChanged="Grid_Category_SelectedIndexChanged">
                 <FooterStyle BackColor="White" ForeColor="#000066" />
                 <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
                 <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
@@ -109,7 +112,7 @@
 <asp:Label ID="Status" runat="server" Text=""></asp:Label>
                <hr />
             <asp:GridView  AutoPostBack="true" ID="Grid_items"  AllowPaging="true" PageSize="2" OnPageIndexChanging="Grid_items_PageIndexChanging" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="pid"
-              AutoColumnGenrated="false" ShowHeaderWhenEmpty="True"    OnRowDeleting="Grid_items_RowDeleting" AutoGenerateColumns="False" OnSelectedIndexChanged="Grid_items_SelectedIndexChanged">
+              AutoColumnGenrated="false" ShowHeaderWhenEmpty="True"    OnRowDeleting="Grid_items_RowDeleting" AutoGenerateColumns="False">
                 <FooterStyle BackColor="White" ForeColor="#000066" />
                 <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
                 <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />

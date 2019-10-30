@@ -31,7 +31,7 @@ namespace WebApplication1
                     parent.Connection_establish();
                     parent.cmd = new System.Data.SqlClient.SqlCommand("orders", Connections.con);
                     parent.cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    (parent.cmd.Parameters.AddWithValue("@id", SqlDbType.NVarChar)).Value = "geet";
+                    (parent.cmd.Parameters.AddWithValue("@id", SqlDbType.NVarChar)).Value = ((List<string>)Session["user"])[0].ToString();
                 parent.da.SelectCommand = parent.cmd;
                 parent.da.Fill(parent.ds, "order");
                 GridView1.DataSource = parent.ds.Tables["order"].DefaultView;
@@ -56,23 +56,28 @@ namespace WebApplication1
         {
             if (Session["User"] != null)
             {
-                parent.Connection_establish();
-              
-                parent.cmd = new SqlCommand("order", Connections.con);
-                parent.cmd.CommandType = CommandType.StoredProcedure;
-                (parent.cmd.Parameters.AddWithValue("@id", SqlDbType.NVarChar)).Value=((List<string>)Session["user"])[0].ToString();
-                    
-                parent.da = new SqlDataAdapter(parent.cmd);
-                parent.da.Fill(parent.ds, "Orders");
-                        GridView1.DataSource = parent.ds.Tables["Orders"].DefaultView;
-                GridView1.DataBind();
+                try
+                {
+                    parent.Connection_establish();
+
+                    parent.cmd = new SqlCommand("orders", Connections.con);
+                    parent.cmd.CommandType = CommandType.StoredProcedure;
+                    (parent.cmd.Parameters.AddWithValue("@id", SqlDbType.NVarChar)).Value = ((List<string>)Session["user"])[0].ToString();
+
+                    parent.da.SelectCommand = parent.cmd;
+                    parent.da.Fill(parent.ds, "orders");
+                    GridView1.DataSource = parent.ds.Tables["orders"].DefaultView;
+                    GridView1.DataBind();
+                }catch(Exception k)
+                { Response.Write(k); }
+                finally { parent.Connection_refuse(); }
             }
             else
             {
                 Response.Redirect("/");
             }
         }
-        protected void Grud_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
 
             int odid = Convert.ToInt32(e.CommandArgument);

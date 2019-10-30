@@ -2,9 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
      <%if (Session["user"] != null)
     {
-
-        if ((((List<string>)Session["user"])[1].ToString()) == "A")
-        { %>
+ %>
   <section class="header_text">
 				<table>
                     <tr>
@@ -49,7 +47,7 @@
                             username:
                         </td>
                         <td>
-                            <asp:TextBox ID="username" placeholder="Enter your username"  runat="server" Text="username"></asp:TextBox>
+                            <asp:TextBox ID="username" readonly="true" placeholder="Enter your username"  runat="server" Text="username"></asp:TextBox>
                               <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="RequiredFieldValidator" ControlToValidate="username" ForeColor="Red" SetFocusOnError="True" ValidationGroup="admin_profile_validation">Username should not blank</asp:RequiredFieldValidator>
                         </td>
                     </tr>
@@ -69,5 +67,5 @@
 			</section>
 
         <%}
-    }%>
+    %>
 </asp:Content>
