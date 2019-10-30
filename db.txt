@@ -300,3 +300,20 @@ ALTER TABLE [dbo].[order]  WITH CHECK ADD FOREIGN KEY([uid])
 REFERENCES [dbo].[users] ([uid])
 GO
 
+alter table product alter column pdesc nvarchar(maX) ;
+
+alter table [dbo].[order] add quantity nvarchar(10)
+alter table [dbo].[order] add amount nvarchar(10)
+alter table payment alter column order_id nvarchar(10)
+alter table payment add  foreign key(order_id) references [DBO].[ORDER](oid)
+
+create table super_category (
+	s_cat_id nvarchar(50) primary key,
+	name  nvarchar(max)
+	);
+
+alter table category add s_catid nvarchar(50)
+alter table category add foreign key(s_catid) references super_category(s_cat_id)
+
+
+alter table product alter column pimage nvarchar(max)
