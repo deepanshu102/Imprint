@@ -12,7 +12,7 @@ namespace WebApplication1
     public partial class search : System.Web.UI.Page
     {
         Connections parent;
-        static int ids = 1;
+        static int ids = 5;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["user"] != null)
